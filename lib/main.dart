@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:less_projects/register_form.dart';
 
 
 void main() => runApp(new MyApp());
@@ -25,12 +26,18 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage>{
   final loginCon = new TextEditingController();
   final passCon = new TextEditingController();
+  
   bool isNameValid = true;
   bool isPassValid = true;
+  
   String errLogin = 'Допустимая длина логина: 3-16\nДопустымые символы: a-z A-Z - _';
   String errPass = 'Минимальная длина пароля: 8\nКак минимум одна заглавная буква,\nодна строчная буква,\nодна цифра\nи один специальный символ';
+  
   RegExp regExpLogin = new RegExp(r'^[a-zA-Z0-9_-]{3,16}$');
   RegExp regExpPass = new RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
+  
+  bool passwordNoVisible = true;
+
   @override
   Widget build(BuildContext context){
     return new Scaffold(
@@ -72,7 +79,7 @@ class LoginPageState extends State<LoginPage>{
                                 });
                               },
                               controller: loginCon,
-                                decoration: new InputDecoration(
+                              decoration: new InputDecoration(
                                 icon: new Icon(FontAwesomeIcons.user, color: Colors.blueGrey[900],),
                                 hintText: 'Введите логин',
                                 labelText: 'Ваш логин',
@@ -97,14 +104,25 @@ class LoginPageState extends State<LoginPage>{
                                 });
                               },
                               controller: passCon,
-                                decoration: new InputDecoration(
+                              obscureText: passwordNoVisible,
+                              decoration: new InputDecoration(
+                                suffixIcon: IconButton(
+                                icon: Icon(
+                                  passwordNoVisible ? Icons.visibility_off: Icons.visibility,
+                                  color: Colors.blueGrey[900],
+                                ),
+                                onPressed: (){
+                                  setState(() {
+                                    passwordNoVisible = !passwordNoVisible;
+                                  });
+                                },
+                              ),
                                 icon: new Icon(FontAwesomeIcons.key, color: Colors.blueGrey[900],),
                                 hintText: 'Введите пароль',
                                 labelText: 'Ваш пароль',
                                 errorText: isPassValid ? null: errPass
                             ),
                               keyboardType: TextInputType.text,
-                              obscureText: true,
                             ),
                           ),
                           new Container(
@@ -124,7 +142,13 @@ class LoginPageState extends State<LoginPage>{
                           new Container(
                             margin: new EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 20.0),
                             child: new MaterialButton(
-                              onPressed: () => {},
+                              onPressed: () => {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RegistrationFormPage()),
+                                  )
+                              },
                               color: Colors.blueGrey[800],
                               textColor: Colors.white,
                               child: new Text('Зарегистрироваться'),
