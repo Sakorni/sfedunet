@@ -1,9 +1,7 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
-import 'register_form.dart';
 import 'books_page.dart';
 import 'films_page.dart';
-import 'login_form.dart';
 
 class HomeWidget extends StatefulWidget {
   @override

@@ -1,12 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:less_projects/services/auth.dart';
+
+import 'home_widget.dart';
 
 class RegistrationFormPage extends StatefulWidget {
   @override
   State createState() => new RegistrationFormState();
 }
 
-class RegistrationFormState extends State<RegistrationFormPage>{
+class RegistrationFormState extends State<RegistrationFormPage> {
   final loginConReg = new TextEditingController();
   final passConReg = new TextEditingController();
   final emailConReg = new TextEditingController();
@@ -16,204 +21,248 @@ class RegistrationFormState extends State<RegistrationFormPage>{
   bool isPassValidReg = true;
   bool isEmailValidReg = true;
   bool isPhoneValidReg = true;
+  bool error = false;
 
-  String errLoginReg = 'Допустимая длина логина: 3-16\nДопустымые символы: a-z A-Z - _';
-  String errPassReg = 'Минимальная длина пароля: 8\nКак минимум одна заглавная буква,\nодна строчная буква,\nодна цифра\nи один специальный символ';
-  String errEmailReg = 'Примеры корректного логина логина: test@mail.ru\n3fgh4gfh.dfgdf1@gmail.com и т.д';
-  String errPhoneReg = 'Примеры корректных номеров толефона:\n89999999999\n+79999999999 и т.д';
-  
+  String caption = "Произошла ошибка. Повторите попытку позже.";
+  String errLoginReg =
+      'Допустимая длина логина: 3-16\nДопустымые символы: a-z A-Z - _';
+  String errPassReg =
+      'Минимальная длина пароля: 8\nКак минимум одна заглавная буква,\nодна строчная буква,\nодна цифра\nи один специальный символ';
+  String errEmailReg =
+      'Примеры корректного логина логина: test@mail.ru\n3fgh4gfh.dfgdf1@gmail.com и т.д';
+  String errPhoneReg =
+      'Примеры корректных номеров толефона:\n89999999999\n+79999999999 и т.д';
+
   RegExp regExpLoginReg = new RegExp(r'^[a-zA-Z0-9_-]{3,16}$');
-  RegExp regExpPassReg = new RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
-  RegExp regExpEmailReg = new RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$');
+  RegExp regExpPassReg = new RegExp(
+      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
+  RegExp regExpEmailReg = new RegExp(
+      r'^[a-zA-Z0-9.]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$');
   RegExp regExpPhoneReg = new RegExp(r'^((\+7|8)+([0-9]){10})$');
-  
+
   bool passwordNoVisibleReg = true;
-  
+
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
+    if (error)
+      Future.delayed(Duration(seconds: 3)).then((_) => setState(() {
+            error = false;
+          }));
     return new Scaffold(
       backgroundColor: Colors.blueGrey,
       body: new SafeArea(
         child: Center(
           child: new SingleChildScrollView(
-            child: new Column(
-              children: <Widget>[
-                //New user icon
-                new Container(
-                  margin: new EdgeInsets.only(top: 10.0, bottom: 10.0),
-                  width: 100.0,
-                  height: 100.0,
-                  child: new Image(
-                    image: AssetImage('images/add_user.png'),
-                  ),
+              child: new Column(
+            children: <Widget>[
+              //New user icon
+              if (error)
+                Text(
+                  caption,
+                  style: TextStyle(color: Colors.red, fontSize: 20),
                 ),
-                new Form(
-                  child: new Theme(
-                    data: new ThemeData(
-                      brightness: Brightness.dark,
-                      primarySwatch: Colors.teal,
-                    ),
-                    child: new Column(
-                      children: <Widget>[
-                        //Login
-                        new Container(
-                          margin: new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+              new Container(
+                margin: new EdgeInsets.only(top: 10.0, bottom: 10.0),
+                width: 100.0,
+                height: 100.0,
+                child: new Image(
+                  image: AssetImage('images/add_user.png'),
+                ),
+              ),
+              new Form(
+                child: new Theme(
+                  data: new ThemeData(
+                    brightness: Brightness.dark,
+                    primarySwatch: Colors.teal,
+                  ),
+                  child: new Column(
+                    children: <Widget>[
+                      //Login
+                      new Container(
+                          margin:
+                              new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                           child: new TextFormField(
-                            onChanged: (value){
-                              if(regExpLoginReg.hasMatch(value)){
+                            onChanged: (value) {
+                              if (regExpLoginReg.hasMatch(value)) {
                                 isNameValidReg = true;
-                              }else if(value.isEmpty){
+                              } else if (value.isEmpty) {
+                                isNameValidReg = false;
+                              } else {
                                 isNameValidReg = false;
                               }
-                              else{
-                                isNameValidReg = false;
-                              }
-                              setState(() {
-
-                              });
+                              setState(() {});
                             },
                             controller: loginConReg,
                             decoration: new InputDecoration(
-                              icon: new Icon(FontAwesomeIcons.user, color: Colors.blueGrey[900],),
-                              hintText: 'Введите логин',
-                              labelText: 'Ваш логин',
-                              errorText: isNameValidReg ? null : errLoginReg
-                            ),
+                                icon: new Icon(
+                                  FontAwesomeIcons.user,
+                                  color: Colors.blueGrey[900],
+                                ),
+                                hintText: 'Введите логин',
+                                labelText: 'Ваш логин',
+                                errorText: isNameValidReg ? null : errLoginReg),
                             keyboardType: TextInputType.text,
-                          )
-                        ),
-                        //Passsword
-                        new Container(
-                          margin: new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                          )),
+                      //Passsword
+                      new Container(
+                          margin:
+                              new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                           child: new TextFormField(
-                            onChanged: (value){
-                              if(regExpPassReg.hasMatch(value)){
+                            onChanged: (value) {
+                              if (regExpPassReg.hasMatch(value)) {
                                 isPassValidReg = true;
-                              }else if(value.isEmpty){
+                              } else if (value.isEmpty) {
+                                isPassValidReg = false;
+                              } else {
                                 isPassValidReg = false;
                               }
-                              else{
-                                isPassValidReg = false;
-                              }
-                              setState(() {
-
-                              });
+                              setState(() {});
                             },
                             controller: passConReg,
                             obscureText: passwordNoVisibleReg,
                             decoration: new InputDecoration(
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  passwordNoVisibleReg ? Icons.visibility_off: Icons.visibility,
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    passwordNoVisibleReg
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: Colors.blueGrey[900],
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      passwordNoVisibleReg =
+                                          !passwordNoVisibleReg;
+                                    });
+                                  },
+                                ),
+                                icon: new Icon(
+                                  FontAwesomeIcons.key,
                                   color: Colors.blueGrey[900],
                                 ),
-                                onPressed: (){
-                                  setState(() {
-                                    passwordNoVisibleReg = !passwordNoVisibleReg;
-                                  });
-                                },
-                              ),
-                              icon: new Icon(FontAwesomeIcons.key, color: Colors.blueGrey[900],),
-                              hintText: 'Введите пароль',
-                              labelText: 'Ваш пароль',
-                              errorText: isPassValidReg ? null: errPassReg
-                            ),
+                                hintText: 'Введите пароль',
+                                labelText: 'Ваш пароль',
+                                errorText: isPassValidReg ? null : errPassReg),
                             keyboardType: TextInputType.text,
-                          )
-                        ),
-                        //Email adress
-                        new Container(
-                          margin: new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                          )),
+                      //Email adress
+                      new Container(
+                          margin:
+                              new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                           child: new TextFormField(
-                            onChanged: (value){
-                              if(regExpEmailReg.hasMatch(value)){
+                            onChanged: (value) {
+                              if (regExpEmailReg.hasMatch(value)) {
                                 isEmailValidReg = true;
-                              }else if(value.isEmpty){
+                              } else if (value.isEmpty) {
+                                isEmailValidReg = false;
+                              } else {
                                 isEmailValidReg = false;
                               }
-                              else{
-                                isEmailValidReg = false;
-                              }
-                              setState(() {
-
-                              });
+                              setState(() {});
                             },
                             controller: emailConReg,
                             decoration: new InputDecoration(
-                              icon: new Icon(Icons.alternate_email, color: Colors.blueGrey[900],),
-                              hintText: 'Введите электронную почту',
-                              labelText: 'Ваша электронная почта',
-                              errorText: isEmailValidReg ? null : errEmailReg
-                            ),
+                                icon: new Icon(
+                                  Icons.alternate_email,
+                                  color: Colors.blueGrey[900],
+                                ),
+                                hintText: 'Введите электронную почту',
+                                labelText: 'Ваша электронная почта',
+                                errorText:
+                                    isEmailValidReg ? null : errEmailReg),
                             keyboardType: TextInputType.emailAddress,
-                          )
-                        ),
-                        //Phone number
-                        new Container(
-                          margin: new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+                          )),
+                      //Phone number
+                      new Container(
+                          margin:
+                              new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
                           child: new TextFormField(
-                            onChanged: (value){
-                              if(regExpPhoneReg.hasMatch(value)){
+                            onChanged: (value) {
+                              if (regExpPhoneReg.hasMatch(value)) {
                                 isPhoneValidReg = true;
-                              }else if(value.isEmpty){
+                              } else if (value.isEmpty) {
+                                isPhoneValidReg = false;
+                              } else {
                                 isPhoneValidReg = false;
                               }
-                              else{
-                                isPhoneValidReg = false;
-                              }
-                              setState(() {
-
-                              });
+                              setState(() {});
                             },
                             controller: phoneConReg,
                             decoration: new InputDecoration(
-                              icon: new Icon(FontAwesomeIcons.phone, color: Colors.blueGrey[900],),
-                              hintText: 'Введите номер телефона',
-                              labelText: 'Номер телефона',
-                              errorText: isPhoneValidReg ? null: errPhoneReg
-                            ),
+                                icon: new Icon(
+                                  FontAwesomeIcons.phone,
+                                  color: Colors.blueGrey[900],
+                                ),
+                                hintText: 'Введите номер телефона',
+                                labelText: 'Номер телефона',
+                                errorText:
+                                    isPhoneValidReg ? null : errPhoneReg),
                             keyboardType: TextInputType.phone,
-                          )
+                          )),
+                      //Registration button
+                      new Container(
+                        margin: new EdgeInsets.fromLTRB(50.0, 10.0, 50.0, 10.0),
+                        child: new MaterialButton(
+                          onPressed: () async {
+                            try {
+                              FirebaseUser user = await FBAuth().reg(
+                                  email: emailConReg.text,
+                                  password: passConReg.text);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeWidget()),
+                              );
+                            } on PlatformException catch (e) {
+                              if (e.code == "ERROR_INVALID_EMAIL")
+                                setState(() {
+                                  error = true;
+                                  caption =
+                                      "Пожалуйста, перепроверьте e-mail адрес.";
+                                });
+                              else if (e.code == "ERROR_EMAIL_ALREADY_IN_USE")
+                                setState(() {
+                                  error = true;
+                                  caption = "Такой адрес уже зарегестрирован.";
+                                });
+                              else
+                                setState(() {
+                                  error = true;
+                                });
+                            }
+                          },
+                          color: Colors.blueGrey[800],
+                          textColor: Colors.white,
+                          child: new Text('Зарегистрироваться'),
+                          height: 50.0,
+                          minWidth: 200.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
                         ),
-                        //Registration button
-                        new Container(
-                            margin: new EdgeInsets.fromLTRB(50.0, 10.0, 50.0, 10.0),
-                            child: new MaterialButton(
-                              onPressed: () => {},
-                              color: Colors.blueGrey[800],
-                              textColor: Colors.white,
-                              child: new Text('Зарегистрироваться'),
-                              height: 50.0,
-                              minWidth: 200.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                              ),
-                            ),
+                      ),
+                      //Back to login page
+                      new Container(
+                        margin: new EdgeInsets.fromLTRB(50.0, 10.0, 50.0, 5.0),
+                        child: new MaterialButton(
+                          onPressed: () => {Navigator.pop(context)},
+                          color: Colors.blueGrey[800],
+                          textColor: Colors.white,
+                          child: new Text(
+                            'Назад',
                           ),
-                          //Back to login page
-                          new Container(
-                            margin: new EdgeInsets.fromLTRB(50.0, 10.0, 50.0, 5.0),
-                            child: new MaterialButton(
-                              onPressed: () => {
-                                Navigator.pop(context)
-                              },
-                              color: Colors.blueGrey[800],
-                              textColor: Colors.white,
-                              child: new Text('Назад',),
-                              height: 50.0,
-                              minWidth: 200.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                              ),
-                            ),
+                          height: 50.0,
+                          minWidth: 200.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
                           ),
-                      ],
-                    ),
+                        ),
+                      ),
+                    ],
                   ),
-                )
-              ],
-            )
-          ),
+                ),
+              )
+            ],
+          )),
         ),
       ),
     );

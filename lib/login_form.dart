@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:less_projects/services/auth.dart';
 import 'home_widget.dart';
 import 'register_form.dart';
 
@@ -25,7 +27,7 @@ class LoginPageState extends State<LoginPage> {
       r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
 
   bool passwordNoVisible = true;
-
+  bool error = false;
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -35,6 +37,11 @@ class LoginPageState extends State<LoginPage> {
           child: new SingleChildScrollView(
             child: new Column(
               children: <Widget>[
+                if (error)
+                  Text(
+                    "Не удалось войти. Перепроверьте данные и попробуйте снова.",
+                    style: TextStyle(fontSize: 18, color: Colors.red),
+                  ),
                 new Container(
                   width: 100.0,
                   height: 100.0,
@@ -122,11 +129,20 @@ class LoginPageState extends State<LoginPage> {
                           margin:
                               new EdgeInsets.fromLTRB(50.0, 10.0, 50.0, 20.0),
                           child: new MaterialButton(
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeWidget()),
-                            ),
+                            onPressed: () async {
+                              FirebaseUser user = await FBAuth().logIn(
+                                  email: loginCon.text, password: passCon.text);
+                              if (user == null)
+                                setState(() {
+                                  error = true;
+                                });
+                              else
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeWidget()),
+                                );
+                            },
                             color: Colors.blueGrey[800],
                             textColor: Colors.white,
                             child: new Text(
