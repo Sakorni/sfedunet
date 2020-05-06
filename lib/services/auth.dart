@@ -12,7 +12,7 @@ class FBAuth {
       ))
           .user;
       if (user != null) {
-        print(user);
+        print(user.uid);
       }
       return user;
     } catch (e) {
