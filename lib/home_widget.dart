@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'register_form.dart';
 import 'books_page.dart';
 import 'films_page.dart';
-import 'search_page.dart';
 import 'login_form.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -12,7 +11,7 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  int _page = 3;
+  int _page = 2;
   PageController _controller;
   @override
   void initState(){
@@ -33,7 +32,6 @@ class _HomeWidgetState extends State<HomeWidget> {
         children: <Widget>[
           Books(), // Books page
           Films(), // Films page
-          Search(),// Search page
           LoginPage(),// Login page
         ],
       ),
@@ -57,10 +55,6 @@ class _HomeWidgetState extends State<HomeWidget> {
             new BottomNavigationBarItem(
               icon: new Icon(FontAwesomeIcons.film, color: Colors.blueGrey[300]),
               title: new Text('Фильмы', style: TextStyle(color: Colors.blueGrey[300]),),
-            ),
-            new BottomNavigationBarItem(
-              icon: new Icon(FontAwesomeIcons.search, color: Colors.blueGrey[300],),
-              title: new Text('Найти', style: TextStyle(color: Colors.blueGrey[300]),),
             ),
             new BottomNavigationBarItem(
               icon: new Icon(Icons.person_outline, color: Colors.blueGrey[300],),

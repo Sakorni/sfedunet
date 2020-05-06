@@ -11,8 +11,34 @@ class _BooksState extends State<Books> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey,
-      body: Center(
-        child: Text('Здесь будут книги',style: TextStyle(fontSize: 20),),
+      body: new SingleChildScrollView(
+        child: new Column(
+        children: <Widget>[
+          new Container(
+            margin: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 20.0),
+            // child: new Image(image: AssetImage('images/1984.jpg')),
+            child: new ClipRRect(
+              borderRadius: BorderRadius.circular(50.0),
+              child: new Image(image: AssetImage('images/1984.jpg')),
+            ),
+          ),
+          new Container(
+            margin: new EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+            child: new ClipRRect(
+              borderRadius: BorderRadius.circular(50.0),
+              child: new Image(image: AssetImage('images/jack_london.jpg')),
+            ),
+          ),
+          new Container(
+            margin: new EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+            // child: new Image(image: AssetImage('images/sherlok_holmse.jpg')),
+            child: new ClipRRect(
+              borderRadius: BorderRadius.circular(50.0),
+              child: new Image(image: AssetImage('images/sherlok_holmse.jpg')),
+            ),
+          ),
+        ],  
+        ),
       ),
     );
   }

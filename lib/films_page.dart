@@ -11,8 +11,36 @@ class _FilmsState extends State<Films> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey,
-      body: Center(
-        child: Text('Здесь будут фильмы',style: TextStyle(fontSize: 20),),
+      body: new SingleChildScrollView(
+        child: new Column(
+        children: <Widget>[
+          new Container(
+          margin: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 20.0),
+          // child: new Image(image: AssetImage('images/piraty_karibskogo_morya.jpg')),
+          child: new ClipRRect(
+              borderRadius: BorderRadius.circular(50.0),
+              child: new Image(image: AssetImage('images/piraty_karibskogo_morya.jpg')),
+              
+            ),
+        ),
+          new Container(
+            margin: new EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+            // child: new Image(image: AssetImage('images/ZooTropolis.jpg')),
+            child: new ClipRRect(
+              borderRadius: BorderRadius.circular(50.0),
+              child: new Image(image: AssetImage('images/ZooTropolis.jpg')),
+            ),
+          ),
+          new Container(
+            margin: new EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+            // child: new Image(image: AssetImage('images/Avengers.webp')),
+            child: new ClipRRect(
+              borderRadius: BorderRadius.circular(50.0),
+              child: new Image(image: AssetImage('images/Avengers.webp')),
+            ),
+          ),
+        ],  
+      ),
       ),
     );
   }

@@ -45,6 +45,12 @@ flutter:
   assets:
    - images/social-media.png
    - images/add_user.png
+   - images/1984.jpg
+   - images/piraty_karibskogo_morya.jpg
+   - images/jack_london.jpg
+   - images/sherlok_holmse.jpg
+   - images/ZooTropolis.jpg
+   - images/Avengers.webp
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
