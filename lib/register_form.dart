@@ -27,18 +27,17 @@ class RegistrationFormState extends State<RegistrationFormPage> {
   String errLoginReg =
       'Допустимая длина логина: 3-16\nДопустымые символы: a-z A-Z - _';
   String errPassReg =
-      'Минимальная длина пароля: 8\nКак минимум одна заглавная буква,\nодна строчная буква,\nодна цифра\nи один специальный символ';
+      'Минимальная длина пароля - 6 символов';
   String errEmailReg =
       'Примеры корректного логина логина: test@mail.ru\n3fgh4gfh.dfgdf1@gmail.com и т.д';
-  String errPhoneReg =
-      'Примеры корректных номеров толефона:\n89999999999\n+79999999999 и т.д';
 
-  RegExp regExpLoginReg = new RegExp(r'^[a-zA-Z0-9_-]{3,16}$');
+  RegExp regExpLoginReg = new RegExp(r'^[a-zA-Z0-9.*]{3,16}$');
   RegExp regExpPassReg = new RegExp(
-      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
+      r'^[a-zA-Z0-9.*]{6,16}$'
+      );
   RegExp regExpEmailReg = new RegExp(
-      r'^[a-zA-Z0-9.]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$');
-  RegExp regExpPhoneReg = new RegExp(r'^((\+7|8)+([0-9]){10})$');
+      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+      );
 
   bool passwordNoVisibleReg = true;
 
@@ -171,33 +170,6 @@ class RegistrationFormState extends State<RegistrationFormPage> {
                                     isEmailValidReg ? null : errEmailReg),
                             keyboardType: TextInputType.emailAddress,
                           )),
-                      //Phone number
-                      new Container(
-                          margin:
-                              new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
-                          child: new TextFormField(
-                            onChanged: (value) {
-                              if (regExpPhoneReg.hasMatch(value)) {
-                                isPhoneValidReg = true;
-                              } else if (value.isEmpty) {
-                                isPhoneValidReg = false;
-                              } else {
-                                isPhoneValidReg = false;
-                              }
-                              setState(() {});
-                            },
-                            controller: phoneConReg,
-                            decoration: new InputDecoration(
-                                icon: new Icon(
-                                  FontAwesomeIcons.phone,
-                                  color: Colors.blueGrey[900],
-                                ),
-                                hintText: 'Введите номер телефона',
-                                labelText: 'Номер телефона',
-                                errorText:
-                                    isPhoneValidReg ? null : errPhoneReg),
-                            keyboardType: TextInputType.phone,
-                          )),
                       //Registration button
                       new Container(
                         margin: new EdgeInsets.fromLTRB(50.0, 10.0, 50.0, 10.0),
@@ -205,7 +177,7 @@ class RegistrationFormState extends State<RegistrationFormPage> {
                           onPressed: () async {
                             try {
                               FirebaseUser user = await FBAuth().reg(
-                                  email: emailConReg.text,
+                                  email: emailConReg.text.trim(),
                                   password: passConReg.text);
                               Navigator.push(
                                 context,
@@ -223,6 +195,16 @@ class RegistrationFormState extends State<RegistrationFormPage> {
                                 setState(() {
                                   error = true;
                                   caption = "Такой адрес уже зарегестрирован.";
+                                });
+                                else if (e.code == "ERROR_NETWORK_REQUEST_FAILED")
+                                setState(() {
+                                  error = true;
+                                  caption = "Нет подключения к интернету.";
+                                });
+                                else if (e.code == "ERROR_WEAK_PASS_WORD")
+                                setState(() {
+                                  error = true;
+                                  caption = "Короткий пароль. Минимальная длина - 6 символов";
                                 });
                               else
                                 setState(() {

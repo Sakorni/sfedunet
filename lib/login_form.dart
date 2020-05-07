@@ -18,13 +18,13 @@ class LoginPageState extends State<LoginPage> {
   bool isPassValid = true;
 
   String errLogin =
-      'Допустимая длина логина: 3-16\nДопустымые символы: a-z A-Z - _';
+      'Допустимая длина логина: 3-16';
   String errPass =
-      'Минимальная длина пароля: 8\nКак минимум одна заглавная буква,\nодна строчная буква,\nодна цифра\nи один специальный символ';
+      'Минимальная длина пароля - 6 символов';
 
-  RegExp regExpLogin = new RegExp(r'^[a-zA-Z0-9_-]{3,16}$');
+  RegExp regExpLogin = new RegExp(r'^[a-zA-Z0-9.*]{3,16}$');
   RegExp regExpPass = new RegExp(
-      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
+      r'^[a-zA-Z0-9.*]{6,16}$');
 
   bool passwordNoVisible = true;
   bool error = false;
