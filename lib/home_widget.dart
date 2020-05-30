@@ -52,7 +52,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               ),
               title: new Text(
                 'Книги',
-                style: TextStyle(color: Colors.blueGrey[300]),
+                style: TextStyle(color: Colors.blueGrey[300], fontWeight: FontWeight.bold),
               ),
             ),
             new BottomNavigationBarItem(
@@ -61,7 +61,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               ),
               title: new Text(
                 'Фильмы',
-                style: TextStyle(color: Colors.blueGrey[300]),
+                style: TextStyle(color: Colors.blueGrey[300], fontWeight: FontWeight.bold),
               ),
             ),
           ]),

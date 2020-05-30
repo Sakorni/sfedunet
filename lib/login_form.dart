@@ -22,7 +22,9 @@ class LoginPageState extends State<LoginPage> {
   String errPass =
       'Минимальная длина пароля - 6 символов';
 
-  RegExp regExpLogin = new RegExp(r'^[a-zA-Z0-9.*]{3,16}$');
+  RegExp regExpLogin = new RegExp(
+    r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+    );
   RegExp regExpPass = new RegExp(
       r'^[a-zA-Z0-9.*]{6,16}$');
 
@@ -79,8 +81,8 @@ class LoginPageState extends State<LoginPage> {
                                   FontAwesomeIcons.user,
                                   color: Colors.blueGrey[900],
                                 ),
-                                hintText: 'Введите логин',
-                                labelText: 'Ваш логин',
+                                hintText: 'Введите электронную почту',
+                                labelText: 'Ваша электронная почта',
                                 errorText: isNameValid ? null : errLogin),
                             keyboardType: TextInputType.text,
                           ),
