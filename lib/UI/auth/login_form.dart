@@ -58,6 +58,10 @@ class LoginPageState extends State<LoginPage> {
                     ),
                     child: new Column(
                       children: <Widget>[
+                        new Text('Ля, просто нажми "Войти" и всё.',
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w800)),
+                        SizedBox(height: 20),
                         new Container(
                           margin:
                               new EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),

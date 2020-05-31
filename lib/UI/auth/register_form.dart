@@ -53,14 +53,12 @@ class RegistrationFormState extends State<RegistrationFormPage> {
                   caption,
                   style: TextStyle(color: Colors.red, fontSize: 20),
                 ),
-              new Container(
-                margin: new EdgeInsets.only(top: 10.0, bottom: 10.0),
-                width: 100.0,
-                height: 100.0,
-                child: new Image(
-                  image: AssetImage('images/add_user.png'),
-                ),
-              ),
+              new Text('Красиво, правда?\nНет?\nНу и хуй с ним.',
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 2.0)),
+              SizedBox(height: 20),
               new Form(
                 child: new Theme(
                   data: new ThemeData(

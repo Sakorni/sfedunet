@@ -15,7 +15,7 @@ class Books extends StatelessWidget {
       height: MediaQuery.of(context).size.width * 0.2,
       child: FloatingActionButton.extended(
         backgroundColor: Colors.blueGrey[600],
-        label: Text("Обновить список"),
+        label: Text("Ещё!"),
         onPressed: () => BlocProvider.of<BooksBloc>(context).add(MoreBooks()),
       ),
     );
