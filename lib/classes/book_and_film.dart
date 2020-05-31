@@ -1,6 +1,6 @@
-abstract class Item {}
+abstract class InsideItem {}
 
-class Book extends Item {
+class Book extends InsideItem {
   final String id;
   final String name; // название книги
   final String author; //Автор книги
@@ -20,7 +20,7 @@ class Book extends Item {
         link = data['link'];
 }
 
-class Film extends Item {
+class Film extends InsideItem {
   final String id;
   final String name; // Название фильма
   final String rating; //Возрастной рейтинг

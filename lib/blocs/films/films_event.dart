@@ -6,6 +6,10 @@ abstract class FilmsEvent extends Equatable {
 
 class FirstLoadFilm extends FilmsEvent {
   @override
-  // TODO: implement props
+  List<Object> get props => [];
+}
+
+class MoreFilms extends FilmsEvent {
+  @override
   List<Object> get props => [];
 }

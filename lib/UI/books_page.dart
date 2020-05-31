@@ -70,65 +70,6 @@ List<Widget> getListOfItems({List<String> books, BuildContext context}) {
   return result;
 }
 
-class BookListView extends StatelessWidget {
-  final String title;
-  final List<String> books;
-
-  const BookListView({Key key, @required this.title, @required this.books})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        CustomBanner(),
-        Container(
-          height: MediaQuery.of(context).size.height,
-          child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: books.length,
-              itemBuilder: (BuildContext context, int index) {
-                return new Text("1");
-              }),
-        ),
-      ],
-    );
-  }
-}
-
-class BookCard extends StatelessWidget {
-  final String file;
-
-  static const filePath = 'images/';
-
-  const BookCard({Key key, @required this.file}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-          // borderRadius: BorderRadius.all(Radius.circular(15.0)),
-          color: Colors.blueGrey[800],
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black,
-              spreadRadius: 1,
-              offset: Offset(4, 5),
-              blurRadius: 5,
-            )
-          ]),
-      // child: Image.asset(filePath + file),
-      child: InkWell(
-        onTap: () {
-          // Подробнее о книге
-        },
-        child: Image.asset(filePath + file),
-      ),
-    );
-  }
-}
-
 BoxDecoration backgroundGradient() {
   return BoxDecoration(
       gradient: LinearGradient(

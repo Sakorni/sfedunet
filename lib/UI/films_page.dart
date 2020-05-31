@@ -78,7 +78,7 @@ class CustomBanner extends StatelessWidget {
       painter: LinePainter(),
       child: Center(
         child: Container(
-            margin: EdgeInsets.only(top: 20.0),
+            margin: EdgeInsets.only(top: 10.0),
             height: MediaQuery.of(context).size.height * 0.05,
             child: Text(
               'Книги',

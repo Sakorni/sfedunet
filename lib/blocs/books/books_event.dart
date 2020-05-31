@@ -8,3 +8,8 @@ class FirstLoadBook extends BooksEvent {
   @override
   List<Object> get props => [];
 }
+
+class MoreBooks extends BooksEvent {
+  @override
+  List<Object> get props => [];
+}

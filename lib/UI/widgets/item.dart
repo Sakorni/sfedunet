@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:less_projects/classes/book_and_film.dart';
 
 class Item extends StatelessWidget {
   final bool isBook;
@@ -6,6 +7,7 @@ class Item extends StatelessWidget {
   final double width;
   final AssetImage image;
   final String name;
+  final InsideItem item;
 
   const Item(
       {Key key,
@@ -13,7 +15,8 @@ class Item extends StatelessWidget {
       @required this.name,
       @required this.width,
       @required this.height,
-      @required this.isBook})
+      @required this.isBook,
+      this.item})
       : super(key: key);
 
   @override
