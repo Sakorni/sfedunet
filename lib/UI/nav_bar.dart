@@ -52,7 +52,8 @@ class _HomeWidgetState extends State<HomeWidget> {
               ),
               title: new Text(
                 'Книги',
-                style: TextStyle(color: Colors.blueGrey[300], fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Colors.blueGrey[300], fontWeight: FontWeight.bold),
               ),
             ),
             new BottomNavigationBarItem(
@@ -61,29 +62,11 @@ class _HomeWidgetState extends State<HomeWidget> {
               ),
               title: new Text(
                 'Фильмы',
-                style: TextStyle(color: Colors.blueGrey[300], fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Colors.blueGrey[300], fontWeight: FontWeight.bold),
               ),
             ),
           ]),
     );
   }
 }
-
-// [
-//           new BottomNavigationBarItem(
-//             icon: Icon(FontAwesomeIcons.book, color: Colors.blueGrey[100],),
-//             title: Text('Книги', style: TextStyle(color: Colors.blueGrey[100]),),
-//           ),
-//           new BottomNavigationBarItem(
-//             icon: Icon(FontAwesomeIcons.film, color: Colors.blueGrey[100]),
-//             title: Text('Фильмы', style: TextStyle(color: Colors.blueGrey[100]),),
-//           ),
-//           new BottomNavigationBarItem(
-//             icon: Icon(FontAwesomeIcons.search, color: Colors.blueGrey[100],),
-//             title: Text('Найти', style: TextStyle(color: Colors.blueGrey[100]),),
-//           ),
-//           new BottomNavigationBarItem(
-//             icon: Icon(Icons.person_outline, color: Colors.blueGrey[100],),
-//             title: Text('Профиль', style: TextStyle(color: Colors.blueGrey[100]),),
-//           ),
-//         ]

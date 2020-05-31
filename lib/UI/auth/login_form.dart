@@ -1,6 +1,6 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:less_projects/UI/home_widget.dart';
+import 'package:less_projects/UI/nav_bar.dart';
 import 'register_form.dart';
 
 class LoginPage extends StatefulWidget {
@@ -38,7 +38,7 @@ class LoginPageState extends State<LoginPage> {
                     "Не удалось войти. Перепроверьте данные и попробуйте снова.",
                     style: TextStyle(fontSize: 18, color: Colors.red),
                   ),
-                new Container(
+                /* new Container(
                   width: 100.0,
                   height: 100.0,
                   child: new Image(
@@ -46,7 +46,7 @@ class LoginPageState extends State<LoginPage> {
                       'images/social-media.png',
                     ),
                   ),
-                ),
+                ),*/ //TODO: Мб заменить логотипом
                 new Form(
                   child: new Theme(
                     data: new ThemeData(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:less_projects/UI/home_widget.dart';
+import 'package:less_projects/UI/nav_bar.dart';
 
 class RegistrationFormPage extends StatefulWidget {
   @override
