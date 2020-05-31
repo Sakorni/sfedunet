@@ -1,10 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:less_projects/services/auth.dart';
-
-import 'home_widget.dart';
+import 'package:less_projects/UI/home_widget.dart';
 
 class RegistrationFormPage extends StatefulWidget {
   @override
@@ -26,18 +23,14 @@ class RegistrationFormState extends State<RegistrationFormPage> {
   String caption = "Произошла ошибка. Повторите попытку позже.";
   String errLoginReg =
       'Допустимая длина логина: 3-16\nДопустымые символы: a-z A-Z - _';
-  String errPassReg =
-      'Минимальная длина пароля - 6 символов';
+  String errPassReg = 'Минимальная длина пароля - 6 символов';
   String errEmailReg =
       'Примеры корректного логина логина: test@mail.ru\n3fgh4gfh.dfgdf1@gmail.com и т.д';
 
   RegExp regExpLoginReg = new RegExp(r'^[a-zA-Z0-9.*]{3,16}$');
-  RegExp regExpPassReg = new RegExp(
-      r'^[a-zA-Z0-9.*]{6,16}$'
-      );
+  RegExp regExpPassReg = new RegExp(r'^[a-zA-Z0-9.*]{6,16}$');
   RegExp regExpEmailReg = new RegExp(
-      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
-      );
+      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
 
   bool passwordNoVisibleReg = true;
 
@@ -174,44 +167,12 @@ class RegistrationFormState extends State<RegistrationFormPage> {
                       new Container(
                         margin: new EdgeInsets.fromLTRB(50.0, 10.0, 50.0, 10.0),
                         child: new MaterialButton(
-                          onPressed: () async {
-                            try {
-                              FirebaseUser user = await FBAuth().reg(
-                                  email: emailConReg.text.trim(),
-                                  password: passConReg.text);
+                          onPressed: () => //TODO: Прикрутить логин
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomeWidget()),
-                              );
-                            } on PlatformException catch (e) {
-                              if (e.code == "ERROR_INVALID_EMAIL")
-                                setState(() {
-                                  error = true;
-                                  caption =
-                                      "Пожалуйста, перепроверьте e-mail адрес.";
-                                });
-                              else if (e.code == "ERROR_EMAIL_ALREADY_IN_USE")
-                                setState(() {
-                                  error = true;
-                                  caption = "Такой адрес уже зарегестрирован.";
-                                });
-                                else if (e.code == "ERROR_NETWORK_REQUEST_FAILED")
-                                setState(() {
-                                  error = true;
-                                  caption = "Нет подключения к интернету.";
-                                });
-                                else if (e.code == "ERROR_WEAK_PASS_WORD")
-                                setState(() {
-                                  error = true;
-                                  caption = "Короткий пароль. Минимальная длина - 6 символов";
-                                });
-                              else
-                                setState(() {
-                                  error = true;
-                                });
-                            }
-                          },
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeWidget()),
+                          ),
                           color: Colors.blueGrey[800],
                           textColor: Colors.white,
                           child: new Text('Зарегистрироваться'),

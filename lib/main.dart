@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:less_projects/login_form.dart';
+import 'package:less_projects/UI/auth/login_form.dart';
 
 void main() => runApp(new MyApp());
 
@@ -19,11 +19,10 @@ class MyApp extends StatelessWidget {
             letterSpacing: 1,
           ),
           subtitle2: TextStyle(
-            fontSize: 20,
-            color: Colors.white,
-            fontWeight: FontWeight.w300,
-            letterSpacing: 1
-          ),
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.w300,
+              letterSpacing: 1),
         ),
         iconTheme: IconThemeData(color: Colors.white, size: 28),
         fontFamily: 'Roboto-Thin',

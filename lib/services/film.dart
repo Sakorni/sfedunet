@@ -5,7 +5,8 @@ class Film {
   final String year; //Год выпуска
   final String genre; // Жанр
   final String caption; // Краткое описание фильма
-  final String info; // Актерский состав, сценаристы и тд
+  final String mainRoles; // Актерский состав
+  final String director; // Cценарист и тд
   final String picUrl; // Ссылка на заглавную картинку фильма
   final String link; // Ссылка на сам фильм
 
@@ -16,7 +17,8 @@ class Film {
       this.year,
       this.genre,
       this.caption,
-      this.info,
+      this.mainRoles,
+      this.director,
       this.picUrl,
       this.link});
 
@@ -28,7 +30,8 @@ class Film {
         year = data['year'],
         genre = data['genre'],
         caption = data['caption'],
-        info = data['info'],
+        mainRoles = data['mainRoles'],
         picUrl = data['picUrl'],
+        director = data['director'],
         link = data['link'];
 }
