@@ -40,12 +40,8 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
     'zov_predkov.jpg',
     'vsadnic_bez_golovi.jpg',
   ];
-  int start;
-  int end;
-  BooksBloc() {
-    this.start = 0;
-    this.end = 5;
-  }
+  int start = 0;
+  int end = 5;
   @override
   BooksState get initialState => BooksMain(books: books.sublist(start, end));
 
@@ -55,17 +51,17 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
   ) async* {
     if (event is FirstLoadBook) {
       yield BooksLoading(
-          caption: "Идёт загрузка списка книг... Пожалуйста, подождите");
+          caption: "Идёт загрузка списка книг...\n Пожалуйста, подождите");
       await Future.delayed(Duration(seconds: 3));
-      yield BooksMain(books: books.sublist(start, end));
       chageInt();
+      yield BooksMain(books: books.sublist(start, end));
     }
     if (event is MoreBooks) {
       yield BooksLoading(
-          caption: "Идёт обновление списка книг... Пожалуйста, подождите");
-      await Future.delayed(Duration(seconds: 4));
-      yield BooksMain(books: books.sublist(start, end));
+          caption: "Идёт обновление списка книг... \nПожалуйста, подождите");
+      await Future.delayed(Duration(seconds: 3));
       chageInt();
+      yield BooksMain(books: books.sublist(start, end));
     }
   }
 

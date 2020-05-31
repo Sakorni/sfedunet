@@ -40,12 +40,8 @@ class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
     'prizrak.webp',
     '101_dalmatines.webp',
   ];
-  int start;
-  int end;
-  FilmsBloc() {
-    this.start = 0;
-    this.end = 5;
-  }
+  int start = 0;
+  int end = 5;
   @override
   FilmsState get initialState => FilmsMain(films: films.sublist(start, end));
 
@@ -55,17 +51,17 @@ class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
   ) async* {
     if (event is FirstLoadFilm) {
       yield FilmLoading(
-          caption: "Идёт загрузка списка фильмов... Пожалуйста, подождите");
+          caption: "Идёт загрузка списка фильмов... \nПожалуйста, подождите");
       await Future.delayed(Duration(seconds: 3));
-      yield FilmsMain(films: films.sublist(start, end));
       chageInt();
+      yield FilmsMain(films: films.sublist(start, end));
     }
     if (event is MoreFilms) {
       yield FilmLoading(
-          caption: "Идёт обновление списка фильмов... Пожалуйста, подождите");
-      await Future.delayed(Duration(seconds: 4));
-      yield FilmsMain(films: films.sublist(start, end));
+          caption: "Идёт обновление списка фильмов... \nПожалуйста, подождите");
+      await Future.delayed(Duration(seconds: 3));
       chageInt();
+      yield FilmsMain(films: films.sublist(start, end));
     }
   }
 
