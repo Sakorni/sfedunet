@@ -18,23 +18,32 @@ class Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10.0),
-      width: this.width,
-      height: this.height,
-      decoration: BoxDecoration(
-        image: DecorationImage(image: image, fit: BoxFit.fill),
-        border: Border.all(
-          color: Colors.white,
-          width: 2.0,
+    return Column(
+      children: <Widget>[
+        Text(
+          name,
+          style: TextStyle(
+              fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
         ),
-        borderRadius: BorderRadius.circular(50.0),
-      ),
-      child: FlatButton(
-        child: new Container(),
-        onPressed: () => print(
-            "Clicked in $name\nheight:${this.height}\nweight:${this.height}"),
-      ),
+        Container(
+          margin: EdgeInsets.only(bottom: 20.0, top: 5.0),
+          width: this.width,
+          height: this.height,
+          decoration: BoxDecoration(
+            image: DecorationImage(image: image, fit: BoxFit.fill),
+            border: Border.all(
+              color: Colors.white,
+              width: 2.0,
+            ),
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+          child: FlatButton(
+            child: new Container(),
+            onPressed: () => print(
+                "Clicked in $name\nheight:${this.height}\nweight:${this.height}"),
+          ),
+        ),
+      ],
     );
   }
 }

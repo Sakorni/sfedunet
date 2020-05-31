@@ -2,57 +2,72 @@ import 'package:flutter/material.dart';
 import 'package:less_projects/UI/widgets/item.dart';
 
 class Books extends StatelessWidget {
+  List<String> books = [
+    '10_nigret.jpg',
+    'bezmolv_pacient.jpg',
+    'face_with_shram.jpg',
+    'five_five.jpg',
+    'girl_in_train.webp',
+    'i_find_you.jpg',
+    'sherlok_holmse.jpg',
+    'telefonist.jpg',
+    'the_one.jpg',
+    'dnk_geniya.jpg',
+    'harry.jpg',
+    'harry1.png',
+    'harry2.jpeg',
+    '20_tis_lye_pod_vodoy.jpg',
+    'beliy_klik.jpg',
+    'dva_capitana.jpg',
+    'tainstven_ostrov.jpg',
+    'tri_mushketera.jpg',
+    'dvacyat_let_spustya.jpg',
+    'deti_kapitana_granta.jpg',
+    '1984.jpg',
+    'jack_london.jpg',
+    '451_po_fareng.jpg',
+    'belaya_gvardiya.jpg',
+    'finansist.jpg',
+    'kriscniy_otec.jpg',
+    'morskoy_volk.jpg',
+    'nad_propastyu_vo_rzi.jpg',
+    'zov_predkov.jpg',
+    'vsadnic_bez_golovi.jpg',
+  ];
   @override
   //TODO: Добавить блокКонсумер
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: backgroundGradient(),
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              CustomBanner(),
-              BookListView(
-                title: 'Детективы',
-                books: [
-                  '10_nigret.jpg',
-                  'bezmolv_pacient.jpg',
-                  'face_with_shram.jpg',
-                  'five_five.jpg',
-                  'girl_in_train.webp',
-                  'i_find_you.jpg',
-                  'sherlok_holmse.jpg',
-                  'telefonist.jpg',
-                  'the_one.jpg',
-                  'dnk_geniya.jpg',
-                  'harry.jpg',
-                  'harry1.png',
-                  'harry2.jpeg',
-                  '20_tis_lye_pod_vodoy.jpg',
-                  'beliy_klik.jpg',
-                  'dva_capitana.jpg',
-                  'tainstven_ostrov.jpg',
-                  'tri_mushketera.jpg',
-                  'dvacyat_let_spustya.jpg',
-                  'deti_kapitana_granta.jpg',
-                  '1984.jpg',
-                  'jack_london.jpg',
-                  '451_po_fareng.jpg',
-                  'belaya_gvardiya.jpg',
-                  'finansist.jpg',
-                  'kriscniy_otec.jpg',
-                  'morskoy_volk.jpg',
-                  'nad_propastyu_vo_rzi.jpg',
-                  'zov_predkov.jpg',
-                  'vsadnic_bez_golovi.jpg',
-                ],
-              ),
-            ],
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          decoration: backgroundGradient(),
+          child: SingleChildScrollView(
+            child: Column(
+              children: getListOfItems(books: books, context: context),
+            ),
           ),
         ),
       ),
     );
   }
+}
+
+List<Widget> getListOfItems({List<String> books, BuildContext context}) {
+  double width = MediaQuery.of(context).size.width * 0.6;
+  double height = MediaQuery.of(context).size.height * 0.4;
+  List<Widget> result = new List<Widget>();
+  result.add(CustomBanner());
+  books.forEach((book) => result.add(
+        new Item(
+          height: height,
+          width: width,
+          name: book,
+          isBook: true,
+          image: AssetImage('images/' + book),
+        ),
+      ));
+  print(result.length);
+  return result;
 }
 
 class BookListView extends StatelessWidget {
@@ -64,24 +79,16 @@ class BookListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width * 0.6;
-    double height = MediaQuery.of(context).size.height * 0.4;
     return Column(
       children: <Widget>[
+        CustomBanner(),
         Container(
           height: MediaQuery.of(context).size.height,
-          width: width,
           child: ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: books.length,
               itemBuilder: (BuildContext context, int index) {
-                return Item(
-                  height: height,
-                  width: width,
-                  name: books[index],
-                  isBook: true,
-                  image: AssetImage('images/' + books[index]),
-                );
+                return new Text("1");
               }),
         ),
       ],
@@ -149,8 +156,8 @@ class CustomBanner extends StatelessWidget {
       painter: LinePainter(),
       child: Center(
         child: Container(
-            margin: EdgeInsets.only(top: 50.0),
-            height: 60.0,
+            margin: EdgeInsets.only(top: 20.0),
+            height: MediaQuery.of(context).size.height * 0.05,
             child: Text(
               'Книги',
               // style: Theme.of(context).textTheme.headline6,

@@ -1,6 +1,7 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:less_projects/UI/nav_bar.dart';
+import 'package:less_projects/classes/requests.dart';
 import 'register_form.dart';
 
 class LoginPage extends StatefulWidget {
@@ -11,6 +12,8 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   final loginCon = new TextEditingController();
   final passCon = new TextEditingController();
+
+  Requests req = new Requests();
 
   bool isNameValid = true;
   bool isPassValid = true;

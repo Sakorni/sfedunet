@@ -1,11 +1,6 @@
 class User {
-  final String id;
-  List<String> watched = [];
-  List<String> read = [];
+  final String token;
 
-  User({this.id});
-  User.fromData(Map<String, dynamic> data)
-      : id = data['id'],
-        watched = data['wathced'],
-        read = data['read'];
+  User({this.token});
+  User.fromData(Map<String, dynamic> data) : token = data['jwt'];
 }
