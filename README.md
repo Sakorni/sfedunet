@@ -1,3 +1,3 @@
-# Flutter_login
+# ByTimeS. Flutter application
 
-Simple Flutter login and registration forms
+## Flutter application
