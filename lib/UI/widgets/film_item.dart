@@ -25,8 +25,7 @@ class FilmItem extends StatelessWidget {
           width: this.width,
           height: this.height,
           decoration: BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage(item.picUrl), fit: BoxFit.fill),
+            image: DecorationImage(image: item.image, fit: BoxFit.fill),
             border: Border.all(
               color: Colors.white,
               width: 2.0,
@@ -34,13 +33,16 @@ class FilmItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(50.0),
           ),
           child: FlatButton(
-              child: new Container(),
-              onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => FilmItemPage(
-                            film: item,
-                          )))),
+            child: new Container(),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FilmItemPage(
+                  film: item,
+                ),
+              ),
+            ),
+          ),
         ),
       ],
     );

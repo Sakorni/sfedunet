@@ -1,0 +1,69 @@
+ assets:
+   - images/social-media.png
+   - images/add_user.png
+
+   - images/10_nigret.jpg
+   - images/bezmolv_pacient.jpg
+   - images/face_with_shram.jpg
+   - images/five_five.jpg
+   - images/girl_in_train.webp
+   - images/i_find_you.jpg
+   - images/sherlok_holmse.jpg
+   - images/telefonist.jpg
+   - images/the_one.jpg
+   - images/dnk_geniya.jpg
+
+   - images/harry.jpg
+   - images/harry1.png
+   - images/harry2.jpeg
+   - images/20_tis_lye_pod_vodoy.jpg
+   - images/beliy_klik.jpg
+   - images/dva_capitana.jpg
+   - images/tainstven_ostrov.jpg
+   - images/tri_mushketera.jpg
+   - images/dvacyat_let_spustya.jpg
+   - images/deti_kapitana_granta.jpg
+
+   - images/1984.jpg
+   - images/jack_london.jpg
+   - images/451_po_fareng.jpg
+   - images/belaya_gvardiya.jpg
+   - images/finansist.jpg
+   - images/kriscniy_otec.jpg
+   - images/morskoy_volk.jpg
+   - images/nad_propastyu_vo_rzi.jpg
+   - images/zov_predkov.jpg
+   - images/vsadnic_bez_golovi.jpg
+
+   - images/piraty_karibskogo_morya.jpg
+   - images/ZooTropolis.jpg
+   - images/Avengers.webp
+   - images/leon_king1.webp
+   - images/harry_1.webp
+   - images/briliantovaya_ruka.webp
+   - images/toy_story1.webp
+   - images/sherlok.webp
+   - images/fantasticheskiye_tvari_1.webp
+   - images/marsianin.webp
+
+   - images/nachalo.webp
+   - images/ivan_vasilievich.webp
+   - images/avatar.webp
+   - images/temniy_ricar.webp
+   - images/matrix.webp
+   - images/strazi_galaktiki.webp
+   - images/valee.webp
+   - images/back_to_future.webp
+   - images/five_elem.webp
+   - images/deadpool.webp
+
+   - images/odin_doma.webp
+   - images/hatico.webp
+   - images/golovolomka.webp
+   - images/malefisenta.webp
+   - images/cars.webp
+   - images/chudo.webp
+   - images/paddingtons_advanture.webp
+   - images/polosatiy_reys.webp
+   - images/prizrak.webp
+   - images/101_dalmatines.webp

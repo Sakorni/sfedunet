@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:less_projects/UI/pages/book_item_page.dart';
 import 'package:less_projects/classes/book_and_film.dart';
 
 class BookItem extends StatelessWidget {
@@ -24,8 +25,7 @@ class BookItem extends StatelessWidget {
           width: this.width,
           height: this.height,
           decoration: BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage(item.picUrl), fit: BoxFit.fill),
+            image: DecorationImage(image: item.image, fit: BoxFit.fill),
             border: Border.all(
               color: Colors.white,
               width: 2.0,
@@ -34,8 +34,14 @@ class BookItem extends StatelessWidget {
           ),
           child: FlatButton(
             child: new Container(),
-            onPressed: () => print(
-                "Clicked in ${item.name}\nheight:${this.height}\nwidth:${this.width}"),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BookItemPage(
+                  book: item,
+                ),
+              ),
+            ),
           ),
         ),
       ],
