@@ -15,12 +15,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<LoginBloc>(
           create: (context) => LoginBloc()..add(FirstLoadingLogin()),
         ),
-        BlocProvider<FilmsBloc>(
-            create: (context) => FilmsBloc() //..add(FirstLoadFilm()),
-            ),
-        BlocProvider<BooksBloc>(
-            create: (context) => BooksBloc() //..add(FirstLoadBook()),
-            ),
+        BlocProvider<FilmsBloc>(create: (context) => FilmsBloc()),
+        BlocProvider<BooksBloc>(create: (context) => BooksBloc()),
       ],
       child: new MaterialApp(
         debugShowCheckedModeBanner: false,

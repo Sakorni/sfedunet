@@ -5,8 +5,11 @@ abstract class BooksEvent extends Equatable {
 }
 
 class FirstLoadBook extends BooksEvent {
+  final User user;
+
+  FirstLoadBook({this.user});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [user];
 }
 
 class MoreBooks extends BooksEvent {

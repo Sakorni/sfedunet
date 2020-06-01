@@ -5,16 +5,22 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:less_projects/UI/test_book.dart';
 import 'package:less_projects/classes/book_and_film.dart';
+import 'package:less_projects/classes/user.dart';
 
 part 'books_event.dart';
 part 'books_state.dart';
 
 class BooksBloc extends Bloc<BooksEvent, BooksState> {
   List<Book> books = testBooks;
+  User user;
   int start = 0;
   int end = 4;
   @override
   BooksState get initialState => BooksMain(books: books.sublist(start, end));
+
+  void setUser(User user) {
+    this.user = user;
+  }
 
   @override
   Stream<BooksState> mapEventToState(

@@ -5,12 +5,14 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:less_projects/UI/test_films.dart';
 import 'package:less_projects/classes/book_and_film.dart';
+import 'package:less_projects/classes/user.dart';
 
 part 'films_event.dart';
 part 'films_state.dart';
 
 class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
   List<Film> films = testFilms;
+  User user;
   int start = 0;
   int end = 4;
   @override

@@ -5,8 +5,11 @@ abstract class FilmsEvent extends Equatable {
 }
 
 class FirstLoadFilm extends FilmsEvent {
+  final User user;
+
+  FirstLoadFilm({this.user});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [user];
 }
 
 class MoreFilms extends FilmsEvent {
