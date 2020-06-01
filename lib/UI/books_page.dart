@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:less_projects/UI/style/decoration.dart';
 import 'package:less_projects/UI/widgets/banner.dart';
-import 'package:less_projects/UI/widgets/item.dart';
+import 'package:less_projects/UI/widgets/book_item.dart';
 import 'package:less_projects/blocs/books/books_bloc.dart';
+import 'package:less_projects/classes/book_and_film.dart';
 
 class Books extends StatelessWidget {
   @override
@@ -21,18 +22,16 @@ class Books extends StatelessWidget {
     );
 
     ///Выдает наполнение основного экрана
-    List<Widget> getListOfItems({List<String> books, BuildContext context}) {
+    List<Widget> getListOfItems({List<Book> books, BuildContext context}) {
       double width = MediaQuery.of(context).size.width * 0.6;
       double height = MediaQuery.of(context).size.height * 0.4;
       List<Widget> result = new List<Widget>();
       result.add(MyBanner(caption: "Книги"));
       books.forEach((book) => result.add(
-            new Item(
+            new BookItem(
               height: height,
               width: width,
-              name: book,
-              isBook: true,
-              image: AssetImage('images/' + book),
+              item: book,
             ),
           ));
       result.add(getMore);

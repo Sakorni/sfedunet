@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:less_projects/classes/book_and_film.dart';
 
-class Item extends StatelessWidget {
-  final bool isBook;
+class FilmItem extends StatelessWidget {
   final double height;
   final double width;
-  final AssetImage image;
-  final String name;
-  final InsideItem item;
+  final Film item;
 
-  const Item(
-      {Key key,
-      @required this.image,
-      @required this.name,
-      @required this.width,
-      @required this.height,
-      @required this.isBook,
-      this.item})
+  const FilmItem(
+      {Key key, @required this.width, @required this.height, this.item})
       : super(key: key);
 
   @override
@@ -24,7 +15,7 @@ class Item extends StatelessWidget {
     return Column(
       children: <Widget>[
         Text(
-          name,
+          item.name,
           style: TextStyle(
               fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
         ),
@@ -33,7 +24,8 @@ class Item extends StatelessWidget {
           width: this.width,
           height: this.height,
           decoration: BoxDecoration(
-            image: DecorationImage(image: image, fit: BoxFit.fill),
+            image: DecorationImage(
+                image: NetworkImage(item.picUrl), fit: BoxFit.fill),
             border: Border.all(
               color: Colors.white,
               width: 2.0,
@@ -43,7 +35,7 @@ class Item extends StatelessWidget {
           child: FlatButton(
             child: new Container(),
             onPressed: () => print(
-                "Clicked in $name\nheight:${this.height}\nweight:${this.height}"),
+                "Clicked in ${item.name}\nheight:${this.height}\nwidth:${this.width}"),
           ),
         ),
       ],

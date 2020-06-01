@@ -5,11 +5,11 @@ abstract class FilmsState extends Equatable {
 }
 
 class FilmsMain extends FilmsState {
-  final List<String> films;
+  final List<Film> films;
 
   FilmsMain({@required this.films});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [films];
 }
 
 class FilmLoading extends FilmsState {

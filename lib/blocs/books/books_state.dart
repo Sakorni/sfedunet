@@ -5,7 +5,7 @@ abstract class BooksState extends Equatable {
 }
 
 class BooksMain extends BooksState {
-  final List<String> books;
+  final List<Book> books;
 
   BooksMain({@required this.books});
   @override
