@@ -25,9 +25,10 @@ class Film extends InsideItem {
   final String name; // Название фильма
   final String rating; //Возрастной рейтинг
   final String year; //Год выпуска
+  final String country; //Год выпуска
   final String genre; // Жанр
   final String caption; // Краткое описание фильма
-  final String mainRoles; // Актерский состав
+  final List<String> mainRoles; // Актерский состав
   final String director; // Cценарист и тд
   final String picUrl; // Ссылка на заглавную картинку фильма
   final String link; // Ссылка на сам фильм
@@ -40,6 +41,7 @@ class Film extends InsideItem {
       this.genre,
       this.caption,
       this.mainRoles,
+      this.country,
       this.director,
       this.picUrl,
       this.link});
@@ -52,6 +54,7 @@ class Film extends InsideItem {
         year = data['year'],
         genre = data['genre'],
         caption = data['caption'],
+        country = data['country'],
         mainRoles = data['mainRoles'],
         picUrl = data['picUrl'],
         director = data['director'],
