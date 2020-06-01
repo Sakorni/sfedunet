@@ -148,7 +148,11 @@ class FilmItemPage extends StatelessWidget {
                     field("Возрастной рейтинг: ", film.rating),
                     field("Год выпуска: ", film.year),
                     field("Описание: ", film.caption),
-                    field("В главных ролях: ", film.mainRoles.toString()),
+                    field(
+                        "В главных ролях: ",
+                        film.mainRoles
+                            .toString()
+                            .replaceAll(RegExp(r'\[|\]'), '')),
                     buttonField("Ссылка на фильм: ", film.link, context),
                     addToFavorites(context),
                     addToReadList(context),
