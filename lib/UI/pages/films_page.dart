@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:less_projects/UI/style/decoration.dart';
 import 'package:less_projects/UI/widgets/banner.dart';
-import 'package:less_projects/UI/widgets/book_item.dart';
-import 'package:less_projects/blocs/books/books_bloc.dart';
+import 'package:less_projects/UI/widgets/film_item.dart';
+import 'package:less_projects/blocs/films/films_bloc.dart';
 import 'package:less_projects/classes/book_and_film.dart';
 
-class Books extends StatelessWidget {
+class Films extends StatelessWidget {
   @override
+  //TODO: Добавить блокКонсумер
   Widget build(BuildContext context) {
     //Кнопошка получения большего списка
     Widget getMore = Container(
@@ -17,21 +18,21 @@ class Books extends StatelessWidget {
       child: FloatingActionButton.extended(
         backgroundColor: Colors.blueGrey[600],
         label: Text("Ещё!"),
-        onPressed: () => BlocProvider.of<BooksBloc>(context).add(MoreBooks()),
+        onPressed: () => BlocProvider.of<FilmsBloc>(context).add(MoreFilms()),
       ),
     );
 
     ///Выдает наполнение основного экрана
-    List<Widget> getListOfItems({List<Book> books, BuildContext context}) {
+    List<Widget> getListOfItems({List<Film> films, BuildContext context}) {
       double width = MediaQuery.of(context).size.width * 0.6;
       double height = MediaQuery.of(context).size.height * 0.4;
       List<Widget> result = new List<Widget>();
-      result.add(MyBanner(caption: "Книги"));
-      books.forEach((book) => result.add(
-            new BookItem(
+      result.add(MyBanner(caption: "Фильмы"));
+      films.forEach((film) => result.add(
+            new FilmItem(
               height: height,
               width: width,
-              item: book,
+              item: film,
             ),
           ));
       result.add(getMore);
@@ -42,20 +43,23 @@ class Books extends StatelessWidget {
       child: Scaffold(
         body: Container(
             decoration: backgroundGradient(),
-            child: BlocConsumer<BooksBloc, BooksState>(
+            child: BlocConsumer<FilmsBloc, FilmsState>(
               listener: (context, state) {
                 // TODO: implement listener
               },
               builder: (context, state) {
-                if (state is BooksMain) {
-                  return SingleChildScrollView(
-                    child: Column(
-                      children:
-                          getListOfItems(books: state.books, context: context),
+                if (state is FilmsMain) {
+                  return Container(
+                    height: MediaQuery.of(context).size.height,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: getListOfItems(
+                            films: state.films, context: context),
+                      ),
                     ),
                   );
                 }
-                if (state is BooksLoading) {
+                if (state is FilmLoading) {
                   return Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Center(

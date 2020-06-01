@@ -1,14 +1,16 @@
-abstract class InsideItem {}
+import 'package:cached_network_image/cached_network_image.dart';
 
-class Book extends InsideItem {
+class Book {
   final String id;
   final String name; // название книги
   final String author; //Автор книги
   final String info; // Краткое описание книги
   final String picUrl; // Ссылка на картинку(обложку)
   final String link; // Ссылка на саму книгу
-
-  Book({this.id, this.picUrl, this.name, this.info, this.author, this.link});
+  CachedNetworkImageProvider image;
+  Book({this.id, this.picUrl, this.name, this.info, this.author, this.link}) {
+    this.image = new CachedNetworkImageProvider(this.picUrl);
+  }
 
   ///Преобразовывает книгу из json запроса в объект класса
   Book.fromData(Map<String, dynamic> data)
@@ -20,7 +22,7 @@ class Book extends InsideItem {
         link = data['link'];
 }
 
-class Film extends InsideItem {
+class Film {
   final String id;
   final String name; // Название фильма
   final String rating; //Возрастной рейтинг
@@ -32,6 +34,7 @@ class Film extends InsideItem {
   final String director; // Cценарист и тд
   final String picUrl; // Ссылка на заглавную картинку фильма
   final String link; // Ссылка на сам фильм
+  CachedNetworkImageProvider image;
 
   Film(
       {this.id,
@@ -44,7 +47,9 @@ class Film extends InsideItem {
       this.country,
       this.director,
       this.picUrl,
-      this.link});
+      this.link}) {
+    this.image = new CachedNetworkImageProvider(this.picUrl);
+  }
 
   ///Преобразовывает фильм из json запроса в объект класса
   Film.fromData(Map<String, dynamic> data)

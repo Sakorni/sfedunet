@@ -13,7 +13,7 @@ class MyBanner extends StatelessWidget {
             margin: EdgeInsets.only(top: 20.0),
             height: MediaQuery.of(context).size.height * 0.05,
             child: Text(
-              'Книги',
+              caption,
               // style: Theme.of(context).textTheme.headline6,
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             )),

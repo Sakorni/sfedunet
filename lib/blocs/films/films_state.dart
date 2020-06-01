@@ -18,6 +18,5 @@ class FilmLoading extends FilmsState {
   FilmLoading({this.caption});
 
   @override
-  // TODO: implement props
   List<Object> get props => [caption];
 }
