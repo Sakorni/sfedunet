@@ -1,0 +1,55 @@
+import 'dart:async';
+
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:less_projects/classes/requests.dart';
+import 'package:less_projects/classes/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+part 'login_event.dart';
+part 'login_state.dart';
+
+Requests req = new Requests();
+
+class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  @override
+  LoginState get initialState => LoginInitial();
+
+  @override
+  Stream<LoginState> mapEventToState(
+    LoginEvent event,
+  ) async* {
+    if (event is FirstLoadingLogin) {
+      yield LoginLoading(
+          caption: "Идёт проверка данных\nПожалуйста, подождите");
+      final prefs = await SharedPreferences.getInstance();
+      final password = prefs.getString('password') ?? 0;
+      final login = prefs.getString('login') ?? 0;
+      if (password == 0) {
+        yield LoginInitial();
+      } else {
+        User user = await req.getToken(login: login, password: password);
+        if (user != null) {
+          yield LoginSuccess(user: user);
+          yield LoginInitial();
+        } else
+          yield LoginInitial(failed: true);
+      }
+    }
+    if (event is CheckLogin) {
+      User user =
+          await req.getToken(login: event.login, password: event.password);
+      if (user != null) {
+        yield LoginLoading(
+            caption: "Идёт проверка данных\nПожалуйста, подождите");
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString('login', event.login);
+        prefs.setString('password', event.password);
+        yield LoginSuccess(user: user);
+        yield LoginInitial();
+      } else
+        yield LoginInitial(failed: true);
+    }
+  }
+}

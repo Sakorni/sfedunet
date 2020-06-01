@@ -1,6 +1,7 @@
 class User {
+  final String login;
   final String token;
+  final String password;
 
-  User({this.token});
-  User.fromData(Map<String, dynamic> data) : token = data['jwt'];
+  User({this.token, this.login, this.password});
 }

@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:less_projects/classes/user.dart';
 
 class Requests {
-  String token;
   static const URL = 'http://109.172.68.223:3000';
 
   ///Регистрирует пользователя.
@@ -28,14 +27,22 @@ class Requests {
   ///Получает токен данного пользователя.
   Future<User> getToken(
       {@required String login, @required String password}) async {
+    String bodyLogin =
+        RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                .hasMatch(login)
+            ? "email"
+            : "username";
     String body = jsonEncode(<String, dynamic>{
-      "auth": {"username": login, "password": password}
+      "auth": {bodyLogin: login, "password": password}
     });
     http.Response response = await http.post(URL + '/user_token',
         body: body,
         headers: <String, String>{'Content-Type': 'application/json'});
     if (response.statusCode == 200)
-      return new User.fromData(jsonDecode(response.body)["jwt"]);
+      return new User(
+          token: jsonDecode(response.body)["jwt"],
+          login: login,
+          password: password);
     else
       return null;
   }

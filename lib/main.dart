@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:less_projects/UI/auth/login_form.dart';
 import 'package:less_projects/blocs/books/books_bloc.dart';
 import 'package:less_projects/blocs/films/films_bloc.dart';
+import 'package:less_projects/blocs/login/login_bloc.dart';
 
 void main() => runApp(new MyApp());
 
@@ -11,6 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<LoginBloc>(
+          create: (context) => LoginBloc()..add(FirstLoadingLogin()),
+        ),
         BlocProvider<FilmsBloc>(
             create: (context) => FilmsBloc() //..add(FirstLoadFilm()),
             ),
