@@ -5,24 +5,36 @@ import 'package:less_projects/UI/widgets/banner.dart';
 import 'package:less_projects/UI/widgets/book_item.dart';
 import 'package:less_projects/blocs/books/books_bloc.dart';
 import 'package:less_projects/classes/book_and_film.dart';
+import 'package:less_projects/classes/requests.dart';
+import 'package:less_projects/classes/user.dart';
+
+Requests req = new Requests();
 
 class Books extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    User user = BlocProvider.of<BooksBloc>(context).user;
     //Кнопошка получения большего списка
-    Widget getMore = Container(
-      padding: EdgeInsets.only(bottom: 10),
-      width: MediaQuery.of(context).size.width * 0.7,
-      height: MediaQuery.of(context).size.width * 0.2,
-      child: FloatingActionButton.extended(
-        backgroundColor: Colors.blueGrey[600],
-        label: Text("Ещё!"),
-        onPressed: () => BlocProvider.of<BooksBloc>(context).add(MoreBooks()),
-      ),
-    );
+    Widget getMore() {
+      return Container(
+        padding: EdgeInsets.only(bottom: 10),
+        width: MediaQuery.of(context).size.width * 0.7,
+        height: MediaQuery.of(context).size.width * 0.2,
+        child: FloatingActionButton.extended(
+            backgroundColor: Colors.blueGrey[600],
+            label: Text("Ещё!"),
+            onPressed: () => req.getBooks(
+                token: user
+                    .token) //BlocProvider.of<BooksBloc>(context).add(MoreBooks()),
+            ),
+      );
+    }
 
     ///Выдает наполнение основного экрана
-    List<Widget> getListOfItems({List<Book> books, BuildContext context}) {
+    List<Widget> getListOfItems({
+      List<Book> books,
+      BuildContext context,
+    }) {
       double width = MediaQuery.of(context).size.width * 0.6;
       double height = MediaQuery.of(context).size.height * 0.4;
       List<Widget> result = new List<Widget>();
@@ -34,7 +46,7 @@ class Books extends StatelessWidget {
               item: book,
             ),
           ));
-      result.add(getMore);
+      result.add(getMore());
       return result;
     }
 
@@ -53,7 +65,9 @@ class Books extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Column(
                         children: getListOfItems(
-                            books: state.books, context: context),
+                          books: state.books,
+                          context: context,
+                        ),
                       ),
                     ),
                   );

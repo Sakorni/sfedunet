@@ -14,12 +14,12 @@ class Book {
 
   ///Преобразовывает книгу из json запроса в объект класса
   Book.fromData(Map<String, dynamic> data)
-      : id = data['id'],
+      : id = data['id'].toString(),
         picUrl = data['picUrl'],
         name = data['name'],
         author = data['author'],
         info = data['info'],
-        link = data['link'];
+        link = data['source'];
 }
 
 class Film {
@@ -53,15 +53,15 @@ class Film {
 
   ///Преобразовывает фильм из json запроса в объект класса
   Film.fromData(Map<String, dynamic> data)
-      : id = data['id'],
+      : id = data['id'].toString(),
         name = data['name'],
-        rating = data['rating'],
-        year = data['year'],
+        rating = data['rating'].toString(),
+        year = data['year'].toString(),
         genre = data['genre'],
         caption = data['caption'],
-        country = data['country'],
+        country = data['countri'],
         mainRoles = data['mainRoles'],
         picUrl = data['picUrl'],
         director = data['director'],
-        link = data['link'];
+        link = data['source'];
 }

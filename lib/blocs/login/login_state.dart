@@ -7,7 +7,7 @@ abstract class LoginState extends Equatable {
 class LoginInitial extends LoginState {
   final bool failed;
 
-  LoginInitial({this.failed});
+  LoginInitial({this.failed = false});
 
   @override
   List<Object> get props => [];

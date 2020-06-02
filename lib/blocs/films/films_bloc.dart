@@ -23,6 +23,7 @@ class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
     FilmsEvent event,
   ) async* {
     if (event is FirstLoadFilm) {
+      this.user = event.user;
       yield FilmLoading(
           caption: "Идёт загрузка списка фильмов... \nПожалуйста, подождите");
       await Future.delayed(Duration(seconds: 3));

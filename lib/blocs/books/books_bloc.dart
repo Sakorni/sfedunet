@@ -27,6 +27,7 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
     BooksEvent event,
   ) async* {
     if (event is FirstLoadBook) {
+      this.user = event.user;
       yield BooksLoading(
           caption: "Идёт загрузка списка книг...\n Пожалуйста, подождите");
       await Future.delayed(Duration(seconds: 3));

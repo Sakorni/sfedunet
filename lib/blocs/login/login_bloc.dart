@@ -26,6 +26,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       final prefs = await SharedPreferences.getInstance();
       final password = prefs.getString('password') ?? 0;
       final login = prefs.getString('login') ?? 0;
+      print(login);
+      print(password);
       if (password == 0) {
         yield LoginInitial();
       } else {
@@ -38,11 +40,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     }
     if (event is CheckLogin) {
+      yield LoginLoading(
+          caption: "Идёт проверка данных\nПожалуйста, подождите");
       User user =
           await req.getToken(login: event.login, password: event.password);
       if (user != null) {
-        yield LoginLoading(
-            caption: "Идёт проверка данных\nПожалуйста, подождите");
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('login', event.login);
         prefs.setString('password', event.password);
