@@ -16,6 +16,7 @@ Requests req = new Requests();
 class BooksBloc extends Bloc<BooksEvent, BooksState> {
   List<Book> books = new List<Book>();
   User user;
+  bool favorite = false;
 
   @override
   BooksState get initialState => BooksLoading(
@@ -23,6 +24,10 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
 
   void setUser(User user) {
     this.user = user;
+  }
+
+  void changeFavorite() {
+    this.favorite = !this.favorite;
   }
 
   @override
@@ -74,6 +79,25 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
           yield BooksMain(books: books);
         } on EndOfItems {
           yield EmptyBookList();
+        }
+      }
+    }
+    if (event is ShowFavoritesBooks) {
+      yield BooksLoading(
+          caption: "Загрузка избранных книг... \nПожалуйста, подождите");
+      try {
+        books = await req.getFavBooks(token: user.token);
+        yield BooksMain(books: books);
+      } on EndOfItems {
+        yield EmptyFavBookList();
+      } on NotAuthorized {
+        this.user =
+            await req.getToken(login: user.login, password: user.password);
+        try {
+          books = await req.getFavBooks(token: user.token);
+          yield BooksMain(books: books);
+        } on EndOfItems {
+          yield EmptyFavBookList();
         }
       }
     }

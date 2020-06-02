@@ -158,9 +158,12 @@ class Requests {
     if (response.statusCode == 200) {
       List<dynamic> list = jsonDecode(response.body);
       list.forEach((data) {
-        result.add(new Book.fromData(data));
+        result.add(new Book.fromData(data['book']));
       });
-      return result;
+      if (result.length != 0)
+        return result;
+      else
+        throw new EndOfItems();
     } else
       throw new NetworkException();
   }
@@ -175,9 +178,12 @@ class Requests {
     if (response.statusCode == 200) {
       List<dynamic> list = jsonDecode(response.body);
       list.forEach((data) {
-        result.add(new Film.fromData(data));
+        result.add(new Film.fromData(data['film']));
       });
-      return result;
+      if (result.length != 0)
+        return result;
+      else
+        throw new EndOfItems();
     } else
       throw new NetworkException();
   }

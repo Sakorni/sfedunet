@@ -21,3 +21,8 @@ class RefreshBooks extends BooksEvent {
   @override
   List<Object> get props => [];
 }
+
+class ShowFavoritesBooks extends BooksEvent {
+  @override
+  List<Object> get props => [];
+}

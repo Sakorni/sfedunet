@@ -20,7 +20,7 @@ class Films extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.7,
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
-          backgroundColor: mainColor,
+          backgroundColor: buttonColor,
           label: Text(
             "Ещё!",
             style: style,
@@ -37,7 +37,7 @@ class Films extends StatelessWidget {
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
           heroTag: "btn2",
-          backgroundColor: mainColor,
+          backgroundColor: buttonColor,
           label: Text("Обновить", style: style),
           onPressed: () =>
               BlocProvider.of<FilmsBloc>(context).add(RefreshFilms()),
@@ -50,7 +50,7 @@ class Films extends StatelessWidget {
       double width = MediaQuery.of(context).size.width * 0.6;
       double height = MediaQuery.of(context).size.height * 0.4;
       List<Widget> result = new List<Widget>();
-      result.add(MyBanner(caption: "Фильмы"));
+      result.add(MyBanner(caption: "Фильмы", book: false));
       films.forEach((film) => result.add(
             new FilmItem(
               user: user,
@@ -88,6 +88,25 @@ class Films extends StatelessWidget {
                             ),
                           ),
                           refresh(),
+                        ],
+                      ),
+                    ),
+                  );
+                if (state is EmptyFavFilmList)
+                  return Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "У вас пока что нет избранных книг.",
+                              style: style,
+                            ),
+                          ),
                         ],
                       ),
                     ),

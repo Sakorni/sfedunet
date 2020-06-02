@@ -15,15 +15,20 @@ Requests req = new Requests();
 class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
   List<Film> films = new List<Film>();
   User user;
+  bool favorite = false;
 
   FilmsState get initialState => FilmLoading(
       caption: "Идёт загрузка списка фильмов...\n Пожалуйста, подождите");
+  void changeFavorite() {
+    this.favorite = !this.favorite;
+  }
 
   @override
   Stream<FilmsState> mapEventToState(
     FilmsEvent event,
   ) async* {
     {
+      print(event);
       if (event is FirstLoadFilm) {
         this.user = event.user;
         await req.refreshFilms(token: user.token);
@@ -71,6 +76,27 @@ class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
           try {
             await req.refreshFilms(token: user.token);
             films = await req.getFilms(token: user.token);
+            yield FilmsMain(films: films);
+          } on EndOfItems {
+            yield EmptyFilmList();
+          }
+        }
+      }
+      if (event is ShowFavoritesFilms) {
+        yield FilmLoading(
+            caption: "Загружаем избранные фильмы... \nПожалуйста, подождите");
+        try {
+          await req.refreshFilms(token: user.token);
+          films = await req.getFavFilms(token: user.token);
+          yield FilmsMain(films: films);
+        } on EndOfItems {
+          yield EmptyFavFilmList();
+        } on NotAuthorized {
+          this.user =
+              await req.getToken(login: user.login, password: user.password);
+          try {
+            await req.refreshFilms(token: user.token);
+            films = await req.getFavFilms(token: user.token);
             yield FilmsMain(films: films);
           } on EndOfItems {
             yield EmptyFilmList();

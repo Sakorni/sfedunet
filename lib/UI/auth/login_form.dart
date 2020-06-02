@@ -23,161 +23,166 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: Builder(
-        builder: (context) => new SafeArea(
-          child: Container(
-            decoration: new BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/background.png"),
-                  fit: BoxFit.cover),
-            ),
-            child: Stack(
-              children: <Widget>[
-                Align(
-                  alignment: AlignmentDirectional.topCenter,
-                  child: new Container(
-                    height: MediaQuery.of(context).size.height * 0.34,
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    decoration: new BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("images/whitelogo.png"),
-                            fit: BoxFit.fill)),
+      resizeToAvoidBottomInset: false,
+      body: new GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: Builder(
+          builder: (context) => new SafeArea(
+            child: Container(
+              decoration: new BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("images/background.png"),
+                    fit: BoxFit.cover),
+              ),
+              child: Stack(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment(0.0, -0.5),
+                    child: new Container(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      decoration: new BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("images/whitelogo.png"),
+                              fit: BoxFit.fill)),
+                    ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment(0, 0.5),
-                  child: BlocConsumer<LoginBloc, LoginState>(
-                    listener: (context, state) {
-                      if (state is LoginInitial && state.failed)
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                              "Не удалось войти в аккаунт. Пожалуйста, проверьте корректность данных и попробуйте снова"),
-                        ));
-                      if (state is LoginSuccess) {
-                        BlocProvider.of<BooksBloc>(context)
-                            .add(FirstLoadBook(user: state.user));
-                        BlocProvider.of<FilmsBloc>(context)
-                            .add(FirstLoadFilm(user: state.user));
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeWidget()));
-                      }
-                    },
-                    builder: (context, state) {
-                      if (state is LoginLoading)
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              state.caption,
-                              style: new TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                            CircularProgressIndicator(
-                              strokeWidth: 5,
-                            ),
-                          ],
-                        );
-
-                      if (state is LoginInitial)
-                        return new SingleChildScrollView(
-                          child: new Form(
-                            child: new Theme(
-                              data: new ThemeData(
-                                brightness: Brightness.dark,
+                  Align(
+                    alignment: Alignment(0, 0.5),
+                    child: BlocConsumer<LoginBloc, LoginState>(
+                      listener: (context, state) {
+                        if (state is LoginInitial && state.failed)
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                "Не удалось войти в аккаунт. Пожалуйста, проверьте корректность данных и попробуйте снова"),
+                          ));
+                        if (state is LoginSuccess) {
+                          BlocProvider.of<BooksBloc>(context)
+                              .add(FirstLoadBook(user: state.user));
+                          BlocProvider.of<FilmsBloc>(context)
+                              .add(FirstLoadFilm(user: state.user));
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeWidget()));
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state is LoginLoading)
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                state.caption,
+                                style: new TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
                               ),
-                              child: new Column(
-                                children: <Widget>[
-                                  new Container(
-                                    margin: new EdgeInsets.fromLTRB(
-                                        20.0, 0, 20.0, 20.0),
-                                    child: new TextFormField(
-                                      controller: _loginController,
-                                      decoration: new InputDecoration(
-                                        icon: new Icon(
-                                          FontAwesomeIcons.user,
-                                          color: Colors.blueGrey[900],
+                              CircularProgressIndicator(
+                                strokeWidth: 5,
+                              ),
+                            ],
+                          );
+
+                        if (state is LoginInitial)
+                          return new SingleChildScrollView(
+                            child: new Form(
+                              child: new Theme(
+                                data: new ThemeData(
+                                  brightness: Brightness.dark,
+                                ),
+                                child: new Column(
+                                  children: <Widget>[
+                                    new Container(
+                                      margin: new EdgeInsets.fromLTRB(
+                                          20.0, 0, 20.0, 20.0),
+                                      child: new TextFormField(
+                                        controller: _loginController,
+                                        decoration: new InputDecoration(
+                                          icon: new Icon(
+                                            FontAwesomeIcons.user,
+                                            color: Colors.blueGrey[900],
+                                          ),
+                                          hintText: 'Введите ваш логин',
                                         ),
-                                        hintText: 'Введите ваш логин',
+                                        keyboardType: TextInputType.text,
                                       ),
-                                      keyboardType: TextInputType.text,
                                     ),
-                                  ),
-                                  new Container(
-                                    margin: new EdgeInsets.fromLTRB(
-                                        20.0, 0.0, 20.0, 20.0),
-                                    child: new TextFormField(
-                                      controller: _passwordController,
-                                      obscureText: true,
-                                      decoration: new InputDecoration(
-                                        icon: new Icon(
-                                          FontAwesomeIcons.key,
-                                          color: Colors.blueGrey[900],
+                                    new Container(
+                                      margin: new EdgeInsets.fromLTRB(
+                                          20.0, 0.0, 20.0, 20.0),
+                                      child: new TextFormField(
+                                        controller: _passwordController,
+                                        obscureText: true,
+                                        decoration: new InputDecoration(
+                                          icon: new Icon(
+                                            FontAwesomeIcons.key,
+                                            color: Colors.blueGrey[900],
+                                          ),
+                                          hintText: 'Введите пароль',
                                         ),
-                                        hintText: 'Введите пароль',
+                                        keyboardType:
+                                            TextInputType.visiblePassword,
                                       ),
-                                      keyboardType:
-                                          TextInputType.visiblePassword,
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        bottom: 14.0, top: 10),
-                                    child: new Container(
-                                      padding: EdgeInsets.only(bottom: 10),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 15.0),
+                                      child: new Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.8,
+                                        height:
+                                            MediaQuery.of(context).size.width *
+                                                0.14,
+                                        child: FloatingActionButton.extended(
+                                          heroTag: "htag1",
+                                          backgroundColor: buttonColor,
+                                          label: Text("Войти", style: style),
+                                          onPressed: () => BlocProvider.of<
+                                                  LoginBloc>(context)
+                                              .add(CheckLogin(
+                                                  login: _loginController.text,
+                                                  password: _passwordController
+                                                      .text)),
+                                        ),
+                                      ),
+                                    ),
+                                    new Container(
                                       width: MediaQuery.of(context).size.width *
-                                          0.7,
+                                          0.8,
                                       height:
                                           MediaQuery.of(context).size.width *
-                                              0.2,
+                                              0.14,
                                       child: FloatingActionButton.extended(
-                                        heroTag: "htag1",
+                                        heroTag: "htag2",
                                         backgroundColor: buttonColor,
-                                        label: Text("Войти", style: style),
-                                        onPressed: () =>
-                                            BlocProvider.of<LoginBloc>(context)
-                                                .add(CheckLogin(
-                                                    login:
-                                                        _loginController.text,
-                                                    password:
-                                                        _passwordController
-                                                            .text)),
-                                      ),
-                                    ),
-                                  ),
-                                  new Container(
-                                    padding: EdgeInsets.only(bottom: 10),
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.7,
-                                    height:
-                                        MediaQuery.of(context).size.width * 0.2,
-                                    child: FloatingActionButton.extended(
-                                      heroTag: "htag2",
-                                      backgroundColor: buttonColor,
-                                      label: Text("Перейти к регистрации",
-                                          style: style),
-                                      onPressed: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              BlocProvider<RegistryBloc>(
-                                            create: (context) => RegistryBloc(),
-                                            child: RegistrationFormPage(),
+                                        label: Text("Перейти к регистрации",
+                                            style: style),
+                                        onPressed: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                BlocProvider<RegistryBloc>(
+                                              create: (context) =>
+                                                  RegistryBloc(),
+                                              child: RegistrationFormPage(),
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                    },
+                          );
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

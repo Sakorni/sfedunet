@@ -21,3 +21,8 @@ class RefreshFilms extends FilmsEvent {
   @override
   List<Object> get props => [];
 }
+
+class ShowFavoritesFilms extends FilmsEvent {
+  @override
+  List<Object> get props => [];
+}

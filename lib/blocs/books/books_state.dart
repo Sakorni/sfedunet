@@ -24,3 +24,8 @@ class EmptyBookList extends BooksState {
   @override
   List<Object> get props => [];
 }
+
+class EmptyFavBookList extends BooksState {
+  @override
+  List<Object> get props => [];
+}

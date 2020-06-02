@@ -35,7 +35,7 @@ class FilmItemPage extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.7,
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
-            backgroundColor: mainColor,
+            backgroundColor: buttonColor,
             label: Text(
               "Назад",
               style: style,
@@ -52,7 +52,7 @@ class FilmItemPage extends StatelessWidget {
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
             heroTag: "htag1",
-            backgroundColor: mainColor,
+            backgroundColor: buttonColor,
             label: Text(
               "В избранное",
               style: style,
@@ -69,7 +69,7 @@ class FilmItemPage extends StatelessWidget {
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
           heroTag: "htag2",
-          backgroundColor: mainColor,
+          backgroundColor: buttonColor,
           label: Text("Уже просмотрено", style: style),
           onPressed: () => filmbloc.add(AddToFavorite()),
         ),

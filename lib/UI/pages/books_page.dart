@@ -19,7 +19,7 @@ class Books extends StatelessWidget {
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
           heroTag: "btn1",
-          backgroundColor: mainColor,
+          backgroundColor: buttonColor,
           label: Text(
             "Ещё!",
             style: style,
@@ -36,7 +36,7 @@ class Books extends StatelessWidget {
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
           heroTag: "btn2",
-          backgroundColor: mainColor,
+          backgroundColor: buttonColor,
           label: Text(
             "Обновить",
             style: style,
@@ -55,7 +55,7 @@ class Books extends StatelessWidget {
       double width = MediaQuery.of(context).size.width * 0.6;
       double height = MediaQuery.of(context).size.height * 0.4;
       List<Widget> result = new List<Widget>();
-      result.add(MyBanner(caption: "Книги"));
+      result.add(MyBanner(caption: "Книги", book: true));
       books.forEach((book) => result.add(
             new BookItem(
               user: user,
@@ -93,6 +93,25 @@ class Books extends StatelessWidget {
                             ),
                           ),
                           refresh(),
+                        ],
+                      ),
+                    ),
+                  );
+                if (state is EmptyFavBookList)
+                  return Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "У вас пока что нет избранных книг.",
+                              style: style,
+                            ),
+                          ),
                         ],
                       ),
                     ),
