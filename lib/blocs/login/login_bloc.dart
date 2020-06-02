@@ -44,16 +44,20 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is CheckLogin) {
       yield LoginLoading(
           caption: "Идёт проверка данных\nПожалуйста, подождите");
-      User user =
-          await req.getToken(login: event.login, password: event.password);
-      if (user != null) {
-        final prefs = await SharedPreferences.getInstance();
-        prefs.setString('login', event.login);
-        prefs.setString('password', event.password);
-        yield LoginSuccess(user: user);
-        yield LoginInitial();
-      } else
+      try {
+        User user =
+            await req.getToken(login: event.login, password: event.password);
+        if (user != null) {
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setString('login', event.login);
+          prefs.setString('password', event.password);
+          yield LoginSuccess(user: user);
+          yield LoginInitial();
+        } else
+          yield LoginInitial(failed: true);
+      } catch (e) {
         yield LoginInitial(failed: true);
+      }
     }
     if (event is Exit) {
       final prefs = await SharedPreferences.getInstance();

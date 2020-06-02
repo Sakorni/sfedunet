@@ -37,8 +37,7 @@ class RegistryBloc extends Bloc<RegistryEvent, RegistryState> {
           yield RegistryInitial();
         }
       } catch (e) {
-        print(e);
-        yield RegistryInitial();
+        yield RegistryInitial(failed: true);
       }
     } else
       yield RegistryInitial(failed: true);
