@@ -16,3 +16,8 @@ class MoreFilms extends FilmsEvent {
   @override
   List<Object> get props => [];
 }
+
+class RefreshFilms extends FilmsEvent {
+  @override
+  List<Object> get props => [];
+}

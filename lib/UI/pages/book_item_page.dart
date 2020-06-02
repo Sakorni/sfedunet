@@ -25,15 +25,18 @@ class BookItemPage extends StatelessWidget {
     }
 
     //Кнопошка назад
-    Widget backButton = Container(
-      padding: EdgeInsets.only(bottom: 10),
-      width: MediaQuery.of(context).size.width * 0.7,
-      height: MediaQuery.of(context).size.width * 0.2,
-      child: FloatingActionButton.extended(
-          backgroundColor: Colors.blueGrey[600],
-          label: Text("Назад"),
-          onPressed: () => Navigator.pop(context)),
-    );
+    Widget backButton() {
+      Container(
+        padding: EdgeInsets.only(bottom: 10),
+        width: MediaQuery.of(context).size.width * 0.7,
+        height: MediaQuery.of(context).size.width * 0.2,
+        child: FloatingActionButton.extended(
+            backgroundColor: Colors.blueGrey[600],
+            label: Text("Назад"),
+            onPressed: () => Navigator.pop(context)),
+      );
+    }
+
     //Добавляет в избранное (Вау)
     Widget addToFavorites(BuildContext context) {
       return Container(
@@ -148,7 +151,7 @@ class BookItemPage extends StatelessWidget {
                     buttonField("Ссылка на книгу: ", book.link, context),
                     addToFavorites(context),
                     addToReadList(context),
-                    backButton,
+                    backButton(),
                   ],
                 ),
               ),

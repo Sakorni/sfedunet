@@ -5,18 +5,21 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:less_projects/UI/test_book.dart';
 import 'package:less_projects/classes/book_and_film.dart';
+import 'package:less_projects/classes/requests.dart';
 import 'package:less_projects/classes/user.dart';
 
 part 'books_event.dart';
 part 'books_state.dart';
 
+Requests req = new Requests();
+
 class BooksBloc extends Bloc<BooksEvent, BooksState> {
-  List<Book> books = testBooks;
+  List<Book> books = new List<Book>();
   User user;
-  int start = 0;
-  int end = 4;
+
   @override
-  BooksState get initialState => BooksMain(books: books.sublist(start, end));
+  BooksState get initialState => BooksLoading(
+      caption: "Идёт загрузка списка книг...\n Пожалуйста, подождите");
 
   void setUser(User user) {
     this.user = user;
@@ -28,29 +31,51 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
   ) async* {
     if (event is FirstLoadBook) {
       this.user = event.user;
-      yield BooksLoading(
-          caption: "Идёт загрузка списка книг...\n Пожалуйста, подождите");
-      await Future.delayed(Duration(seconds: 3));
-      chageInt();
-      yield BooksMain(books: books.sublist(start, end));
+      await req.refreshBooks(token: user.token);
+      try {
+        books = await req.getBooks(token: user.token);
+        yield BooksMain(books: books);
+      } on EndOfItems {
+        yield EmptyBookList();
+      }
     }
     if (event is MoreBooks) {
       yield BooksLoading(
           caption: "Идёт обновление списка книг... \nПожалуйста, подождите");
-      await Future.delayed(Duration(seconds: 3));
-      chageInt();
-      yield BooksMain(books: books.sublist(start, end));
+      try {
+        books = await req.getBooks(token: user.token);
+        yield BooksMain(books: books);
+      } on EndOfItems {
+        yield EmptyBookList();
+      } on NotAuthorized {
+        this.user =
+            await req.getToken(login: user.login, password: user.password);
+        try {
+          books = await req.getBooks(token: user.token);
+          yield BooksMain(books: books);
+        } on EndOfItems {
+          yield EmptyBookList();
+        }
+      }
     }
-  }
-
-  void chageInt() {
-    if (end == books.length - 1) {
-      start = 0;
-      end = 4;
-      return;
-    } else {
-      start = end;
-      end >= books.length - 5 ? end = books.length - 1 : end += 4;
+    if (event is RefreshBooks) {
+      try {
+        await req.refreshBooks(token: user.token);
+        books = await req.getBooks(token: user.token);
+        yield BooksMain(books: books);
+      } on EndOfItems {
+        yield EmptyBookList();
+      } on NotAuthorized {
+        this.user =
+            await req.getToken(login: user.login, password: user.password);
+        try {
+          await req.refreshBooks(token: user.token);
+          books = await req.getBooks(token: user.token);
+          yield BooksMain(books: books);
+        } on EndOfItems {
+          yield EmptyBookList();
+        }
+      }
     }
   }
 }

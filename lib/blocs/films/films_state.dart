@@ -20,3 +20,7 @@ class FilmLoading extends FilmsState {
   @override
   List<Object> get props => [caption];
 }
+class EmptyFilmList extends FilmsState{
+  @override
+  List<Object> get props => [];
+}

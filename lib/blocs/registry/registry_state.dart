@@ -7,9 +7,9 @@ abstract class RegistryState extends Equatable {
 class RegistryInitial extends RegistryState {
   final bool failed;
 
-  RegistryInitial({this.failed});
+  RegistryInitial({this.failed = false});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [failed];
 }
 
 class RegistryLoading extends RegistryState {

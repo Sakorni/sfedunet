@@ -16,3 +16,8 @@ class MoreBooks extends BooksEvent {
   @override
   List<Object> get props => [];
 }
+
+class RefreshBooks extends BooksEvent {
+  @override
+  List<Object> get props => [];
+}

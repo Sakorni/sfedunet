@@ -19,3 +19,8 @@ class BooksLoading extends BooksState {
   @override
   List<Object> get props => [caption];
 }
+
+class EmptyBookList extends BooksState {
+  @override
+  List<Object> get props => [];
+}

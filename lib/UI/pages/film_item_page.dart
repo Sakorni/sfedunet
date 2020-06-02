@@ -25,15 +25,18 @@ class FilmItemPage extends StatelessWidget {
     }
 
     //Кнопошка назад
-    Widget backButton = Container(
-      padding: EdgeInsets.only(bottom: 10),
-      width: MediaQuery.of(context).size.width * 0.7,
-      height: MediaQuery.of(context).size.width * 0.2,
-      child: FloatingActionButton.extended(
-          backgroundColor: Colors.blueGrey[600],
-          label: Text("Назад"),
-          onPressed: () => Navigator.pop(context)),
-    );
+    Widget backButton() {
+      Container(
+        padding: EdgeInsets.only(bottom: 10),
+        width: MediaQuery.of(context).size.width * 0.7,
+        height: MediaQuery.of(context).size.width * 0.2,
+        child: FloatingActionButton.extended(
+            backgroundColor: Colors.blueGrey[600],
+            label: Text("Назад"),
+            onPressed: () => Navigator.pop(context)),
+      );
+    }
+
     //Добавляет в избранное (Вау)
     Widget addToFavorites(BuildContext context) {
       return Container(
@@ -41,16 +44,17 @@ class FilmItemPage extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.7,
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
-          heroTag: "htag1",
-          backgroundColor: Colors.blueGrey[600],
-          label: Text("В избранное"),
-          onPressed: () => Scaffold.of(context).showSnackBar(
-            SnackBar(
-              duration: Duration(seconds: 2),
-              content: Text("Добавлено в избранное"),
-            ),
-          ),
-        ),
+            heroTag: "htag1",
+            backgroundColor: Colors.blueGrey[600],
+            label: Text("В избранное"),
+            onPressed: () async {
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  duration: Duration(seconds: 2),
+                  content: Text("Добавлено в избранное"),
+                ),
+              );
+            }),
       );
     }
 
@@ -156,7 +160,7 @@ class FilmItemPage extends StatelessWidget {
                     buttonField("Ссылка на фильм: ", film.link, context),
                     addToFavorites(context),
                     addToReadList(context),
-                    backButton,
+                    backButton(),
                   ],
                 ),
               ),

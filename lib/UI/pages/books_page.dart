@@ -21,12 +21,28 @@ class Books extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.7,
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
+            heroTag: "btn1",
             backgroundColor: Colors.blueGrey[600],
             label: Text("Ещё!"),
             onPressed: () => req.getBooks(
                 token: user
                     .token) //BlocProvider.of<BooksBloc>(context).add(MoreBooks()),
             ),
+      );
+    }
+
+    Widget refresh() {
+      return Container(
+        padding: EdgeInsets.only(bottom: 10),
+        width: MediaQuery.of(context).size.width * 0.7,
+        height: MediaQuery.of(context).size.width * 0.2,
+        child: FloatingActionButton.extended(
+          heroTag: "btn2",
+          backgroundColor: Colors.blueGrey[600],
+          label: Text("Обновить"),
+          onPressed: () =>
+              BlocProvider.of<BooksBloc>(context).add(RefreshBooks()),
+        ),
       );
     }
 
@@ -59,6 +75,16 @@ class Books extends StatelessWidget {
                 // TODO: implement listener
               },
               builder: (context, state) {
+                if (state is EmptyBookList)
+                  return Container(
+                    height: MediaQuery.of(context).size.height,
+                    child: Column(
+                      children: <Widget>[
+                        Text("Ой, кажется, вы всё просмотрели!"),
+                        refresh(),
+                      ],
+                    ),
+                  );
                 if (state is BooksMain) {
                   return Container(
                     height: MediaQuery.of(context).size.height,

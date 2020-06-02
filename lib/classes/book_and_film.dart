@@ -55,12 +55,12 @@ class Film {
   Film.fromData(Map<String, dynamic> data)
       : id = data['id'].toString(),
         name = data['name'],
-        rating = data['rating'].toString(),
+        rating = data['pg'].toString(),
         year = data['year'].toString(),
         genre = data['genre'],
         caption = data['caption'],
         country = data['countri'],
-        mainRoles = data['mainRoles'],
+        mainRoles = data['actors'],
         picUrl = data['picUrl'],
         director = data['director'],
         link = data['source'];

@@ -11,16 +11,18 @@ class Films extends StatelessWidget {
   //TODO: Добавить блокКонсумер
   Widget build(BuildContext context) {
     //Кнопошка получения большего списка
-    Widget getMore = Container(
-      padding: EdgeInsets.only(bottom: 10),
-      width: MediaQuery.of(context).size.width * 0.7,
-      height: MediaQuery.of(context).size.width * 0.2,
-      child: FloatingActionButton.extended(
-        backgroundColor: Colors.blueGrey[600],
-        label: Text("Ещё!"),
-        onPressed: () => BlocProvider.of<FilmsBloc>(context).add(MoreFilms()),
-      ),
-    );
+    Widget getMore() {
+      return Container(
+        padding: EdgeInsets.only(bottom: 10),
+        width: MediaQuery.of(context).size.width * 0.7,
+        height: MediaQuery.of(context).size.width * 0.2,
+        child: FloatingActionButton.extended(
+          backgroundColor: Colors.blueGrey[600],
+          label: Text("Ещё!"),
+          onPressed: () => BlocProvider.of<FilmsBloc>(context).add(MoreFilms()),
+        ),
+      );
+    }
 
     ///Выдает наполнение основного экрана
     List<Widget> getListOfItems({List<Film> films, BuildContext context}) {
@@ -35,7 +37,7 @@ class Films extends StatelessWidget {
               item: film,
             ),
           ));
-      result.add(getMore);
+      result.add(getMore());
       return result;
     }
 

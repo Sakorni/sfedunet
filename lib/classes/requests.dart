@@ -180,6 +180,22 @@ class Requests {
     } else
       throw NetworkException;
   }
+
+  ///Добавляет книгу в список просмотренных
+  Future<void> addBookToWatched(
+      {@required String token, @required String id}) async {
+    http.Response response = await http.get('$URL/books/id',
+        headers: {HttpHeaders.authorizationHeader: token});
+    if (response.statusCode == 401) throw NotAuthorized;
+  }
+
+  ///Добавляет фильм с список просмотренных
+  Future<void> addFilmToWatched(
+      {@required String token, @required String id}) async {
+    http.Response response = await http.get('$URL/films/id',
+        headers: {HttpHeaders.authorizationHeader: token});
+    if (response.statusCode == 401) throw NotAuthorized;
+  }
 }
 
 mixin NetworkException implements Exception {}
