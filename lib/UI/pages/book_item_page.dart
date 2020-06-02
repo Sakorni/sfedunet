@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:less_projects/UI/style/decoration.dart';
+import 'package:less_projects/blocs/book_item/book_item_bloc.dart';
 import 'package:less_projects/classes/book_and_film.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BookItemPage extends StatelessWidget {
-  final Book book;
-
-  const BookItemPage({Key key, @required this.book}) : super(key: key);
+  const BookItemPage({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Book book = BlocProvider.of<BookItemBloc>(context).book;
+
     //Открытие ссылки в браузере
     Future<void> _launchURL(String url, BuildContext context) async {
       if (await canLaunch(url)) {
@@ -132,30 +136,58 @@ class BookItemPage extends StatelessWidget {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: Image(
-                        fit: BoxFit.fill,
-                        image: book.image,
-                      ),
+                child: BlocConsumer<BookItemBloc, BookItemState>(
+              listener: (context, state) {
+                if (state is BookItemInitial && state.added)
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                      duration: Duration(seconds: 2),
+                      content: Text("Книга успешно добавлена в список!")));
+              },
+              builder: (context, state) {
+                if (state is BookItemLoading) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          state.caption,
+                          style: new TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        CircularProgressIndicator(
+                          strokeWidth: 5,
+                        ),
+                      ],
                     ),
-                    field("Название: ", book.name),
-                    field("Автор: ", book.author),
-                    field("Описание: ", book.info),
-                    buttonField("Ссылка на книгу: ", book.link, context),
-                    addToFavorites(context),
-                    addToReadList(context),
-                    backButton(),
-                  ],
-                ),
-              ),
-            ),
+                  );
+                }
+
+                if (state is BookItemInitial)
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          child: Image(
+                            fit: BoxFit.fill,
+                            image: book.image,
+                          ),
+                        ),
+                        field("Название: ", book.name),
+                        field("Автор: ", book.author),
+                        field("Описание: ", book.info),
+                        buttonField("Ссылка на книгу: ", book.link, context),
+                        addToFavorites(context),
+                        addToReadList(context),
+                        backButton(),
+                      ],
+                    ),
+                  );
+              },
+            )),
           ),
         ),
       ),

@@ -21,13 +21,11 @@ class Books extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.7,
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
-            heroTag: "btn1",
-            backgroundColor: Colors.blueGrey[600],
-            label: Text("Ещё!"),
-            onPressed: () => req.getBooks(
-                token: user
-                    .token) //BlocProvider.of<BooksBloc>(context).add(MoreBooks()),
-            ),
+          heroTag: "btn1",
+          backgroundColor: Colors.blueGrey[600],
+          label: Text("Ещё!"),
+          onPressed: () => BlocProvider.of<BooksBloc>(context).add(MoreBooks()),
+        ),
       );
     }
 

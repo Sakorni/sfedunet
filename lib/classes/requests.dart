@@ -102,6 +102,7 @@ class Requests {
     List<Book> result = new List<Book>();
     http.Response response = await http
         .get('$URL/books/', headers: {HttpHeaders.authorizationHeader: token});
+    print(response.statusCode);
     if (response.statusCode == 401) throw NotAuthorized;
     if (response.statusCode == 200) {
       List<dynamic> list = jsonDecode(response.body);

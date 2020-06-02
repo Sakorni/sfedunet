@@ -5,6 +5,17 @@ abstract class FilmItemState extends Equatable {
 }
 
 class FilmItemInitial extends FilmItemState {
+  final bool added;
+
+  FilmItemInitial({this.added = false});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [added];
+}
+
+class FilmItemLoading extends FilmItemState {
+  final String caption;
+
+  FilmItemLoading({this.caption});
+  @override
+  List<Object> get props => [caption];
 }

@@ -1,4 +1,4 @@
-import 'package:less_projects/classes/book_and_film.dart';
+/*import 'package:less_projects/classes/book_and_film.dart';
 
 List<Film> testFilms = [
   new Film(
@@ -21,7 +21,7 @@ List<Film> testFilms = [
       'Джеффри ДеМанн',
       'Ларри Бранденбург',
     ],
-    link: 'https://www.kinopoisk.ru/film/326/',
+    link: ''https://www.kinopoisk.ru/images/film_big/326.jpg',
     picUrl: 'https://www.kinopoisk.ru/images/film_big/326.jpg',
     rating: '16+',
   ),
@@ -178,3 +178,4 @@ List<String> films = [
   'prizrak.webp',
   '101_dalmatines.webp',
 ];
+*/

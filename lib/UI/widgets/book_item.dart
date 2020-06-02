@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:less_projects/UI/pages/book_item_page.dart';
+import 'package:less_projects/blocs/book_item/book_item_bloc.dart';
 import 'package:less_projects/classes/book_and_film.dart';
+import 'package:less_projects/classes/user.dart';
 
 class BookItem extends StatelessWidget {
   final double height;
   final double width;
   final Book item;
+  final User user;
 
   const BookItem(
-      {Key key, @required this.width, @required this.height, this.item})
+      {Key key,
+      @required this.width,
+      @required this.height,
+      @required this.item,
+      @required this.user})
       : super(key: key);
 
   @override
@@ -37,8 +45,9 @@ class BookItem extends StatelessWidget {
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => BookItemPage(
-                  book: item,
+                builder: (context) => BlocProvider<BookItemBloc>(
+                  create: (context) => BookItemBloc(book: item, user: user),
+                  child: BookItemPage(),
                 ),
               ),
             ),
