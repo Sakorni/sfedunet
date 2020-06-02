@@ -26,14 +26,13 @@ class MyBanner extends StatelessWidget {
       painter: LinePainter(),
       child: Center(
         child: Container(
-          margin: EdgeInsets.only(top: 20.0),
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          height: MediaQuery.of(context).size.height * 0.05,
+          height: MediaQuery.of(context).size.height * 0.08,
           child: Stack(
             children: <Widget>[
               Align(
                 alignment: Alignment.centerLeft,
                 child: IconButton(
+                    iconSize: MediaQuery.of(context).size.height * 0.06,
                     icon: Icon(
                       !favorite ? Icons.bookmark_border : Icons.bookmark,
                       color: buttonColor,
@@ -59,7 +58,7 @@ class MyBanner extends StatelessWidget {
                     }),
               ),
               Align(
-                alignment: Alignment.center,
+                alignment: Alignment.bottomCenter,
                 child: Text(
                   caption,
                   // style: Theme.of(context).textTheme.headline6,
@@ -69,7 +68,11 @@ class MyBanner extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: IconButton(
-                  icon: Icon(Icons.exit_to_app),
+                  iconSize: MediaQuery.of(context).size.height * 0.05,
+                  icon: Icon(
+                    Icons.exit_to_app,
+                    color: buttonColor,
+                  ),
                   onPressed: () {
                     BlocProvider.of<LoginBloc>(context).add(Exit());
                     Navigator.pushReplacement(context,
