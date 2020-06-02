@@ -29,6 +29,9 @@ class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
   ) async* {
     {
       if (event is FirstLoadFilm) {
+        yield FilmLoading(
+            caption: "Идёт загрузка списка фильмов... \nПожалуйста, подождите");
+        await Future.delayed(Duration(seconds: 1, milliseconds: 50));
         this.user = event.user;
         await req.refreshFilms(token: user.token);
         try {
@@ -42,6 +45,7 @@ class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
         yield FilmLoading(
             caption:
                 "Идёт обновление списка фильмов... \nПожалуйста, подождите");
+        await Future.delayed(Duration(seconds: 1));
         try {
           print('trying');
           films = await req.getFilms(token: user.token);
