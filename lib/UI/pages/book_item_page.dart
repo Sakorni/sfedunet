@@ -12,7 +12,7 @@ class BookItemPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Book book = BlocProvider.of<BookItemBloc>(context).book;
+    BookItemBloc bookbloc = BlocProvider.of<BookItemBloc>(context);
 
     //Открытие ссылки в браузере
     Future<void> _launchURL(String url, BuildContext context) async {
@@ -30,7 +30,7 @@ class BookItemPage extends StatelessWidget {
 
     //Кнопошка назад
     Widget backButton() {
-      Container(
+      return Container(
         padding: EdgeInsets.only(bottom: 10),
         width: MediaQuery.of(context).size.width * 0.7,
         height: MediaQuery.of(context).size.width * 0.2,
@@ -51,12 +51,7 @@ class BookItemPage extends StatelessWidget {
           heroTag: "htag1",
           backgroundColor: Colors.blueGrey[600],
           label: Text("В избранное"),
-          onPressed: () => Scaffold.of(context).showSnackBar(
-            SnackBar(
-              duration: Duration(seconds: 2),
-              content: Text("Добавлено в избранное"),
-            ),
-          ),
+          onPressed: () => bookbloc.add(AddToFavorite()),
         ),
       );
     }
@@ -70,11 +65,8 @@ class BookItemPage extends StatelessWidget {
         child: FloatingActionButton.extended(
           heroTag: "htag2",
           backgroundColor: Colors.blueGrey[600],
-          label: Text("Уже просмотрено"),
-          onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
-            duration: Duration(seconds: 2),
-            content: Text("Добавлено в список просмотренных"),
-          )),
+          label: Text("Уже прочитано"),
+          onPressed: () => bookbloc.add(AddToFavorite()),
         ),
       );
     }
@@ -136,58 +128,64 @@ class BookItemPage extends StatelessWidget {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: SingleChildScrollView(
-                child: BlocConsumer<BookItemBloc, BookItemState>(
-              listener: (context, state) {
-                if (state is BookItemInitial && state.added)
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                      duration: Duration(seconds: 2),
-                      content: Text("Книга успешно добавлена в список!")));
-              },
-              builder: (context, state) {
-                if (state is BookItemLoading) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          state.caption,
-                          style: new TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        CircularProgressIndicator(
-                          strokeWidth: 5,
-                        ),
-                      ],
-                    ),
-                  );
-                }
-
-                if (state is BookItemInitial)
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.3,
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          child: Image(
-                            fit: BoxFit.fill,
-                            image: book.image,
+              child: BlocConsumer<BookItemBloc, BookItemState>(
+                listener: (context, state) {
+                  if (state is BookItemInitial && state.added)
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                        duration: Duration(seconds: 2),
+                        content: Text("Книга успешно добавлена в список!")));
+                },
+                builder: (context, state) {
+                  print(state.toString());
+                  if (state is BookItemLoading) {
+                    return Center(
+                      heightFactor: 13,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            state.caption,
+                            style: new TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
-                        ),
-                        field("Название: ", book.name),
-                        field("Автор: ", book.author),
-                        field("Описание: ", book.info),
-                        buttonField("Ссылка на книгу: ", book.link, context),
-                        addToFavorites(context),
-                        addToReadList(context),
-                        backButton(),
-                      ],
-                    ),
-                  );
-              },
-            )),
+                          CircularProgressIndicator(
+                            strokeWidth: 5,
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+
+                  if (state is BookItemInitial) {
+                    Book book = state.book;
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            child: Image(
+                              fit: BoxFit.fill,
+                              image: book.image,
+                            ),
+                          ),
+                          field("Название: ", book.name),
+                          field("Автор: ", book.author),
+                          field("Описание: ", book.info),
+                          buttonField("Ссылка на книгу: ", book.link, context),
+                          addToFavorites(context),
+                          addToReadList(context),
+                          backButton(),
+                        ],
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
           ),
         ),
       ),

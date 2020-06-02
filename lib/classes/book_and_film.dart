@@ -63,7 +63,7 @@ class Film {
         rating = data['pg'].toString(),
         year = data['year'].toString(),
         genre = data['genre'],
-        caption = data['caption'],
+        caption = data['info'],
         country = data['countri'],
         mainRoles = data['actors'],
         picUrl = data['img'],

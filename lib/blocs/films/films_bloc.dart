@@ -39,6 +39,7 @@ class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
             caption:
                 "Идёт обновление списка фильмов... \nПожалуйста, подождите");
         try {
+          print('trying');
           films = await req.getFilms(token: user.token);
           yield FilmsMain(films: films);
         } on EndOfItems {
@@ -53,23 +54,23 @@ class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
             yield EmptyFilmList();
           }
         }
-      }
-      if (event is RefreshFilms) {
-        try {
-          await req.refreshFilms(token: user.token);
-          films = await req.getFilms(token: user.token);
-          yield FilmsMain(films: films);
-        } on EndOfItems {
-          yield EmptyFilmList();
-        } on NotAuthorized {
-          this.user =
-              await req.getToken(login: user.login, password: user.password);
+        if (event is RefreshFilms) {
           try {
             await req.refreshFilms(token: user.token);
             films = await req.getFilms(token: user.token);
             yield FilmsMain(films: films);
           } on EndOfItems {
             yield EmptyFilmList();
+          } on NotAuthorized {
+            this.user =
+                await req.getToken(login: user.login, password: user.password);
+            try {
+              await req.refreshFilms(token: user.token);
+              films = await req.getFilms(token: user.token);
+              yield FilmsMain(films: films);
+            } on EndOfItems {
+              yield EmptyFilmList();
+            }
           }
         }
       }

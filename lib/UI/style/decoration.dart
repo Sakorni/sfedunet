@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 BoxDecoration backgroundGradient() {
   return BoxDecoration(
       gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
           tileMode: TileMode.mirror,
           stops: [
         0.0,
@@ -13,9 +13,9 @@ BoxDecoration backgroundGradient() {
         1
       ],
           colors: [
-        Colors.blueGrey[800],
-        Colors.blueGrey[700],
-        Colors.blueGrey[700],
-        Colors.blueGrey[800],
+        Colors.deepPurple[200],
+        Colors.deepPurple[100],
+        Colors.deepPurple[100],
+        Colors.deepPurple[200],
       ]));
 }

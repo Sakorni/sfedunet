@@ -34,7 +34,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.blueGrey,
+          backgroundColor: Colors.deepPurple[200],
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.black,
           type: BottomNavigationBarType.fixed,
@@ -52,8 +52,8 @@ class _HomeWidgetState extends State<HomeWidget> {
               ),
               title: new Text(
                 'Книги',
-                style: TextStyle(
-                    color: Colors.blueGrey[300], fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),
             ),
             new BottomNavigationBarItem(
@@ -62,8 +62,8 @@ class _HomeWidgetState extends State<HomeWidget> {
               ),
               title: new Text(
                 'Фильмы',
-                style: TextStyle(
-                    color: Colors.blueGrey[300], fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),
             ),
           ]),

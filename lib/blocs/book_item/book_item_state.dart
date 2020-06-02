@@ -6,8 +6,9 @@ abstract class BookItemState extends Equatable {
 
 class BookItemInitial extends BookItemState {
   final bool added;
+  final Book book;
 
-  BookItemInitial({this.added = false});
+  BookItemInitial({this.added = false, this.book});
   @override
   List<Object> get props => [];
 }

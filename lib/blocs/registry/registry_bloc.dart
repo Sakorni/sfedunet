@@ -23,15 +23,21 @@ class RegistryBloc extends Bloc<RegistryEvent, RegistryState> {
     if (event is CheckRegistry) {
       yield RegistryLoading(
           caption: "Производится регистрация\nПожалуйста, подождите");
-      bool success = await req.reg(
-          login: event.login, password: event.password, email: event.email);
-      if (success) {
-        final prefs = await SharedPreferences.getInstance();
-        prefs.setString('login', event.login);
-        prefs.setString('password', event.password);
-        User user =
-            await req.getToken(login: event.login, password: event.password);
-        yield RegistrySuccess(user: user);
+      try {
+        bool success = await req.reg(
+            login: event.login, password: event.password, email: event.email);
+
+        if (success) {
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setString('login', event.login);
+          prefs.setString('password', event.password);
+          User user =
+              await req.getToken(login: event.login, password: event.password);
+          yield RegistrySuccess(user: user);
+          yield RegistryInitial();
+        }
+      } catch (e) {
+        print(e);
         yield RegistryInitial();
       }
     } else

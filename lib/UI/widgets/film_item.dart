@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:less_projects/UI/pages/film_item_page.dart';
+import 'package:less_projects/blocs/film_item/film_item_bloc.dart';
 import 'package:less_projects/classes/book_and_film.dart';
+import 'package:less_projects/classes/user.dart';
 
 class FilmItem extends StatelessWidget {
   final double height;
   final double width;
   final Film item;
+  final User user;
 
   const FilmItem(
-      {Key key, @required this.width, @required this.height, this.item})
+      {Key key,
+      @required this.width,
+      @required this.height,
+      @required this.item,
+      @required this.user})
       : super(key: key);
 
   @override
@@ -37,8 +45,9 @@ class FilmItem extends StatelessWidget {
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => FilmItemPage(
-                  film: item,
+                builder: (context) => BlocProvider<FilmItemBloc>(
+                  create: (context) => FilmItemBloc(film: item, user: user),
+                  child: FilmItemPage(),
                 ),
               ),
             ),

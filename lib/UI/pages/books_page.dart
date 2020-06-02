@@ -5,10 +5,7 @@ import 'package:less_projects/UI/widgets/banner.dart';
 import 'package:less_projects/UI/widgets/book_item.dart';
 import 'package:less_projects/blocs/books/books_bloc.dart';
 import 'package:less_projects/classes/book_and_film.dart';
-import 'package:less_projects/classes/requests.dart';
 import 'package:less_projects/classes/user.dart';
-
-Requests req = new Requests();
 
 class Books extends StatelessWidget {
   @override
@@ -55,6 +52,7 @@ class Books extends StatelessWidget {
       result.add(MyBanner(caption: "Книги"));
       books.forEach((book) => result.add(
             new BookItem(
+              user: user,
               height: height,
               width: width,
               item: book,
@@ -76,11 +74,24 @@ class Books extends StatelessWidget {
                 if (state is EmptyBookList)
                   return Container(
                     height: MediaQuery.of(context).size.height,
-                    child: Column(
-                      children: <Widget>[
-                        Text("Ой, кажется, вы всё просмотрели!"),
-                        refresh(),
-                      ],
+                    width: MediaQuery.of(context).size.width,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Ой, кажется, вы всё просмотрели!",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          refresh(),
+                        ],
+                      ),
                     ),
                   );
                 if (state is BooksMain) {

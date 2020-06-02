@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:less_projects/UI/style/decoration.dart';
+import 'package:less_projects/blocs/film_item/film_item_bloc.dart';
 import 'package:less_projects/classes/book_and_film.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FilmItemPage extends StatelessWidget {
-  final Film film;
-
-  const FilmItemPage({Key key, @required this.film}) : super(key: key);
+  const FilmItemPage({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    FilmItemBloc filmbloc = BlocProvider.of<FilmItemBloc>(context);
+    final Film film = filmbloc.film;
     //Открытие ссылки в браузере
     Future<void> _launchURL(String url, BuildContext context) async {
       if (await canLaunch(url)) {
@@ -26,7 +30,7 @@ class FilmItemPage extends StatelessWidget {
 
     //Кнопошка назад
     Widget backButton() {
-      Container(
+      return Container(
         padding: EdgeInsets.only(bottom: 10),
         width: MediaQuery.of(context).size.width * 0.7,
         height: MediaQuery.of(context).size.width * 0.2,
@@ -47,14 +51,7 @@ class FilmItemPage extends StatelessWidget {
             heroTag: "htag1",
             backgroundColor: Colors.blueGrey[600],
             label: Text("В избранное"),
-            onPressed: () async {
-              Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  duration: Duration(seconds: 2),
-                  content: Text("Добавлено в избранное"),
-                ),
-              );
-            }),
+            onPressed: () => filmbloc.add(AddToFavorite())),
       );
     }
 
@@ -68,10 +65,7 @@ class FilmItemPage extends StatelessWidget {
           heroTag: "htag2",
           backgroundColor: Colors.blueGrey[600],
           label: Text("Уже просмотрено"),
-          onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
-            duration: Duration(seconds: 2),
-            content: Text("Добавлено в список просмотренных"),
-          )),
+          onPressed: () => filmbloc.add(AddToFavorite()),
         ),
       );
     }
@@ -81,6 +75,7 @@ class FilmItemPage extends StatelessWidget {
 
     //Текстовое поле
     Widget field(String caption1, String caption2) {
+      print(caption1);
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
         child: Container(
@@ -133,36 +128,65 @@ class FilmItemPage extends StatelessWidget {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: Image(
-                        fit: BoxFit.fill,
-                        image: film.image,
+              child: BlocConsumer<FilmItemBloc, FilmItemState>(
+                listener: (context, state) {
+                  if (state is FilmItemInitial && state.added)
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                        duration: Duration(seconds: 2),
+                        content: Text("Фильм успешно добавлен в список!")));
+                },
+                builder: (context, state) {
+                  if (state is FilmItemLoading) {
+                    return Center(
+                      heightFactor: 13,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            state.caption,
+                            style: new TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          CircularProgressIndicator(
+                            strokeWidth: 5,
+                          ),
+                        ],
                       ),
-                    ),
-                    field("Название: ", film.name),
-                    field("Жанр: ", film.genre),
-                    field("Режиссёр: ", film.director),
-                    field("Возрастной рейтинг: ", film.rating),
-                    field("Год выпуска: ", film.year),
-                    field("Описание: ", film.caption),
-                    field(
-                        "В главных ролях: ",
-                        film.mainRoles
-                            .toString()
-                            .replaceAll(RegExp(r'\[|\]'), '')),
-                    buttonField("Ссылка на фильм: ", film.link, context),
-                    addToFavorites(context),
-                    addToReadList(context),
-                    backButton(),
-                  ],
-                ),
+                    );
+                  }
+                  if (state is FilmItemInitial)
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            child: Image(
+                              fit: BoxFit.fill,
+                              image: film.image,
+                            ),
+                          ),
+                          field("Название: ", film.name),
+                          field("Жанр: ", film.genre),
+                          field("Режиссёр: ", film.director),
+                          field("Возрастной рейтинг: ", film.rating),
+                          field("Год выпуска: ", film.year),
+                          field("Описание: ", film.caption),
+                          field(
+                              "В главных ролях: ",
+                              film.mainRoles
+                                  .toString()
+                                  .replaceAll(RegExp(r'\[|\]'), '')),
+                          buttonField("Ссылка на фильм: ", film.link, context),
+                          addToFavorites(context),
+                          addToReadList(context),
+                          backButton(),
+                        ],
+                      ),
+                    );
+                },
               ),
             ),
           ),

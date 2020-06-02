@@ -5,11 +5,13 @@ import 'package:less_projects/UI/widgets/banner.dart';
 import 'package:less_projects/UI/widgets/film_item.dart';
 import 'package:less_projects/blocs/films/films_bloc.dart';
 import 'package:less_projects/classes/book_and_film.dart';
+import 'package:less_projects/classes/user.dart';
 
 class Films extends StatelessWidget {
   @override
   //TODO: Добавить блокКонсумер
   Widget build(BuildContext context) {
+    User user = BlocProvider.of<FilmsBloc>(context).user;
     //Кнопошка получения большего списка
     Widget getMore() {
       return Container(
@@ -24,6 +26,21 @@ class Films extends StatelessWidget {
       );
     }
 
+    Widget refresh() {
+      return Container(
+        padding: EdgeInsets.only(bottom: 10),
+        width: MediaQuery.of(context).size.width * 0.7,
+        height: MediaQuery.of(context).size.width * 0.2,
+        child: FloatingActionButton.extended(
+          heroTag: "btn2",
+          backgroundColor: Colors.blueGrey[600],
+          label: Text("Обновить"),
+          onPressed: () =>
+              BlocProvider.of<FilmsBloc>(context).add(RefreshFilms()),
+        ),
+      );
+    }
+
     ///Выдает наполнение основного экрана
     List<Widget> getListOfItems({List<Film> films, BuildContext context}) {
       double width = MediaQuery.of(context).size.width * 0.6;
@@ -32,6 +49,7 @@ class Films extends StatelessWidget {
       result.add(MyBanner(caption: "Фильмы"));
       films.forEach((film) => result.add(
             new FilmItem(
+              user: user,
               height: height,
               width: width,
               item: film,
@@ -50,6 +68,29 @@ class Films extends StatelessWidget {
                 // TODO: implement listener
               },
               builder: (context, state) {
+                if (state is EmptyFilmList)
+                  return Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Ой, кажется, вы всё просмотрели!",
+                              style: new TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          refresh(),
+                        ],
+                      ),
+                    ),
+                  );
                 if (state is FilmsMain) {
                   return Container(
                     height: MediaQuery.of(context).size.height,

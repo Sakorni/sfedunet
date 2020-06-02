@@ -43,7 +43,7 @@ class Requests {
     http.Response response = await http.post(URL + '/user_token',
         body: body,
         headers: <String, String>{'Content-Type': 'application/json'});
-    if (response.statusCode == 401) throw NotAuthorized;
+    if (response.statusCode == 401) throw new NotAuthorized();
     if (response.statusCode == 201)
       return new User(
           token: jsonDecode(response.body)["jwt"],
@@ -58,7 +58,7 @@ class Requests {
     print("getting");
     http.Response response = await http
         .get(URL + "/user", headers: {HttpHeaders.authorizationHeader: token});
-    if (response.statusCode == 401) throw NotAuthorized;
+    if (response.statusCode == 401) throw new NotAuthorized();
     print(response.statusCode);
     print(jsonDecode(response.body));
     //TODO: Доделать
@@ -68,7 +68,7 @@ class Requests {
   Future<bool> markBook({@required String token, @required String id}) async {
     http.Response response = await http.get('$URL/books/$id/mark',
         headers: {HttpHeaders.authorizationHeader: token});
-    if (response.statusCode == 401) throw NotAuthorized;
+    if (response.statusCode == 401) throw new NotAuthorized();
     return response.statusCode == 200;
   }
 
@@ -84,7 +84,7 @@ class Requests {
   Future<bool> unmarkBook({@required String token, @required String id}) async {
     http.Response response = await http.delete('$URL/books/$id/unmark',
         headers: {HttpHeaders.authorizationHeader: token});
-    if (response.statusCode == 401) throw NotAuthorized;
+    if (response.statusCode == 401) throw new NotAuthorized();
     return response.statusCode == 200;
   }
 
@@ -92,7 +92,7 @@ class Requests {
   Future<bool> unmarkFilm({@required String token, @required String id}) async {
     http.Response response = await http.delete('$URL/films/$id/unmark',
         headers: {HttpHeaders.authorizationHeader: token});
-    if (response.statusCode == 401) throw NotAuthorized;
+    if (response.statusCode == 401) throw new NotAuthorized();
     return response.statusCode == 200;
   }
 
@@ -103,7 +103,7 @@ class Requests {
     http.Response response = await http
         .get('$URL/books/', headers: {HttpHeaders.authorizationHeader: token});
     print(response.statusCode);
-    if (response.statusCode == 401) throw NotAuthorized;
+    if (response.statusCode == 401) throw new NotAuthorized();
     if (response.statusCode == 200) {
       List<dynamic> list = jsonDecode(response.body);
       list.forEach((data) {
@@ -111,9 +111,9 @@ class Requests {
       });
       return result;
     } else if (response.statusCode == 204)
-      throw EndOfItems;
+      throw new EndOfItems();
     else
-      throw NetworkException;
+      throw new NetworkException();
   }
 
   ///Получить список книг
@@ -121,7 +121,7 @@ class Requests {
     List<Film> result = new List<Film>();
     http.Response response = await http
         .get('$URL/films/', headers: {HttpHeaders.authorizationHeader: token});
-    if (response.statusCode == 401) throw NotAuthorized;
+    if (response.statusCode == 401) throw new NotAuthorized();
     if (response.statusCode == 200) {
       List<dynamic> list = jsonDecode(response.body);
       list.forEach((data) {
@@ -129,23 +129,23 @@ class Requests {
       });
       return result;
     } else if (response.statusCode == 204)
-      throw EndOfItems;
+      throw new EndOfItems();
     else
-      throw NetworkException;
+      throw new NetworkException();
   }
 
   ///Обновить список книг
   Future<void> refreshBooks({@required String token}) async {
     http.Response response = await http.get('$URL/books/refresh',
         headers: {HttpHeaders.authorizationHeader: token});
-    if (response.statusCode == 401) throw NotAuthorized;
+    if (response.statusCode == 401) throw new NotAuthorized();
   }
 
   ///Обновить список фильмов
   Future<void> refreshFilms({@required String token}) async {
     http.Response response = await http.get('$URL/films/refresh',
         headers: {HttpHeaders.authorizationHeader: token});
-    if (response.statusCode == 401) throw NotAuthorized;
+    if (response.statusCode == 401) throw new NotAuthorized();
   }
 
   ///Получить список избранных книг
@@ -153,8 +153,8 @@ class Requests {
     List<Book> result = new List<Book>();
     http.Response response = await http.get('$URL/books/favorites',
         headers: {HttpHeaders.authorizationHeader: token});
-    if (response.statusCode == 401) throw NotAuthorized;
-    if (response.statusCode == 204) throw EndOfItems;
+    if (response.statusCode == 401) throw new NotAuthorized();
+    if (response.statusCode == 204) throw new EndOfItems();
     if (response.statusCode == 200) {
       List<dynamic> list = jsonDecode(response.body);
       list.forEach((data) {
@@ -162,7 +162,7 @@ class Requests {
       });
       return result;
     } else
-      throw NetworkException;
+      throw new NetworkException();
   }
 
   ///Получить список избранных фильмов
@@ -170,8 +170,8 @@ class Requests {
     List<Film> result = new List<Film>();
     http.Response response = await http.get('$URL/films/favorites',
         headers: {HttpHeaders.authorizationHeader: token});
-    if (response.statusCode == 401) throw NotAuthorized;
-    if (response.statusCode == 204) throw EndOfItems;
+    if (response.statusCode == 401) throw new NotAuthorized();
+    if (response.statusCode == 204) throw new EndOfItems();
     if (response.statusCode == 200) {
       List<dynamic> list = jsonDecode(response.body);
       list.forEach((data) {
@@ -179,7 +179,7 @@ class Requests {
       });
       return result;
     } else
-      throw NetworkException;
+      throw new NetworkException();
   }
 
   ///Добавляет книгу в список просмотренных
@@ -187,7 +187,7 @@ class Requests {
       {@required String token, @required String id}) async {
     http.Response response = await http.get('$URL/books/id',
         headers: {HttpHeaders.authorizationHeader: token});
-    if (response.statusCode == 401) throw NotAuthorized;
+    if (response.statusCode == 401) throw new NotAuthorized();
   }
 
   ///Добавляет фильм с список просмотренных
@@ -195,10 +195,12 @@ class Requests {
       {@required String token, @required String id}) async {
     http.Response response = await http.get('$URL/films/id',
         headers: {HttpHeaders.authorizationHeader: token});
-    if (response.statusCode == 401) throw NotAuthorized;
+    if (response.statusCode == 401) throw new NotAuthorized();
   }
 }
 
-mixin NetworkException implements Exception {}
-mixin EndOfItems implements Exception {}
-mixin NotAuthorized implements Exception {}
+class NetworkException implements Exception {}
+
+class EndOfItems implements Exception {}
+
+class NotAuthorized implements Exception {}
