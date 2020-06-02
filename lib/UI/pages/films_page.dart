@@ -12,6 +12,7 @@ class Films extends StatelessWidget {
   //TODO: Добавить блокКонсумер
   Widget build(BuildContext context) {
     User user = BlocProvider.of<FilmsBloc>(context).user;
+
     //Кнопошка получения большего списка
     Widget getMore() {
       return Container(
@@ -19,8 +20,11 @@ class Films extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.7,
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
-          backgroundColor: Colors.blueGrey[600],
-          label: Text("Ещё!"),
+          backgroundColor: mainColor,
+          label: Text(
+            "Ещё!",
+            style: style,
+          ),
           onPressed: () => BlocProvider.of<FilmsBloc>(context).add(MoreFilms()),
         ),
       );
@@ -33,8 +37,8 @@ class Films extends StatelessWidget {
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
           heroTag: "btn2",
-          backgroundColor: Colors.blueGrey[600],
-          label: Text("Обновить"),
+          backgroundColor: mainColor,
+          label: Text("Обновить", style: style),
           onPressed: () =>
               BlocProvider.of<FilmsBloc>(context).add(RefreshFilms()),
         ),
@@ -80,10 +84,7 @@ class Films extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               "Ой, кажется, вы всё просмотрели!",
-                              style: new TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+                              style: style,
                             ),
                           ),
                           refresh(),
@@ -111,11 +112,7 @@ class Films extends StatelessWidget {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Text(state.caption,
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold)),
+                            child: Text(state.caption, style: style),
                           ),
                           CircularProgressIndicator(
                             strokeWidth: 5,

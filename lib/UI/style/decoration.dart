@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+TextStyle style = new TextStyle(
+    fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold);
+Color mainColor = Colors.deepPurple[100];
+Color mainColor2 = Colors.deepPurple[200];
 BoxDecoration backgroundGradient() {
   return BoxDecoration(
       gradient: LinearGradient(
@@ -13,9 +17,9 @@ BoxDecoration backgroundGradient() {
         1
       ],
           colors: [
-        Colors.deepPurple[200],
-        Colors.deepPurple[100],
-        Colors.deepPurple[100],
-        Colors.deepPurple[200],
+        mainColor2,
+        mainColor,
+        mainColor,
+        mainColor2,
       ]));
 }

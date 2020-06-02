@@ -19,8 +19,11 @@ class Books extends StatelessWidget {
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
           heroTag: "btn1",
-          backgroundColor: Colors.blueGrey[600],
-          label: Text("Ещё!"),
+          backgroundColor: mainColor,
+          label: Text(
+            "Ещё!",
+            style: style,
+          ),
           onPressed: () => BlocProvider.of<BooksBloc>(context).add(MoreBooks()),
         ),
       );
@@ -33,8 +36,11 @@ class Books extends StatelessWidget {
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
           heroTag: "btn2",
-          backgroundColor: Colors.blueGrey[600],
-          label: Text("Обновить"),
+          backgroundColor: mainColor,
+          label: Text(
+            "Обновить",
+            style: style,
+          ),
           onPressed: () =>
               BlocProvider.of<BooksBloc>(context).add(RefreshBooks()),
         ),
@@ -83,10 +89,7 @@ class Books extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               "Ой, кажется, вы всё просмотрели!",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+                              style: style,
                             ),
                           ),
                           refresh(),
@@ -116,11 +119,10 @@ class Books extends StatelessWidget {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Text(state.caption,
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold)),
+                            child: Text(
+                              state.caption,
+                              style: style,
+                            ),
                           ),
                           CircularProgressIndicator(
                             strokeWidth: 5,
