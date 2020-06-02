@@ -28,7 +28,6 @@ class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
     FilmsEvent event,
   ) async* {
     {
-      print(event);
       if (event is FirstLoadFilm) {
         this.user = event.user;
         await req.refreshFilms(token: user.token);

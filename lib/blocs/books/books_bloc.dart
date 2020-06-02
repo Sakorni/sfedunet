@@ -34,6 +34,7 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
   Stream<BooksState> mapEventToState(
     BooksEvent event,
   ) async* {
+    print(event);
     if (event is FirstLoadBook) {
       this.user = event.user;
       await req.refreshBooks(token: user.token);
