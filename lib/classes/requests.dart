@@ -79,7 +79,7 @@ class Requests {
     if (response.statusCode == 401) throw NotAuthorized;
     return response.statusCode == 200;
   }
-
+/*
   ///Удаление книги из избранного
   Future<bool> unmarkBook({@required String token, @required String id}) async {
     http.Response response = await http.delete('$URL/books/$id/unmark',
@@ -94,7 +94,7 @@ class Requests {
         headers: {HttpHeaders.authorizationHeader: token});
     if (response.statusCode == 401) throw new NotAuthorized();
     return response.statusCode == 200;
-  }
+  }*/
 
   ///Получить список книг
   Future<List<Book>> getBooks({@required String token}) async {

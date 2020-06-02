@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 TextStyle style = new TextStyle(
-    fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold);
+    fontSize: 18, color: Color(0xFF644D9D), fontWeight: FontWeight.w600);
 Color mainColor = Colors.deepPurple[100];
 Color mainColor2 = Colors.deepPurple[200];
+Color buttonColor = Color(0xFFE7CFFA);
 BoxDecoration backgroundGradient() {
   return BoxDecoration(
       gradient: LinearGradient(

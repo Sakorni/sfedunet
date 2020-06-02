@@ -35,8 +35,11 @@ class BookItemPage extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.7,
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
-            backgroundColor: Colors.blueGrey[600],
-            label: Text("Назад"),
+            backgroundColor: mainColor,
+            label: Text(
+              "Назад",
+              style: style,
+            ),
             onPressed: () => Navigator.pop(context)),
       );
     }
@@ -49,8 +52,8 @@ class BookItemPage extends StatelessWidget {
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
           heroTag: "htag1",
-          backgroundColor: Colors.blueGrey[600],
-          label: Text("В избранное"),
+          backgroundColor: mainColor,
+          label: Text("В избранное", style: style),
           onPressed: () => bookbloc.add(AddToFavorite()),
         ),
       );
@@ -64,15 +67,14 @@ class BookItemPage extends StatelessWidget {
         height: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton.extended(
           heroTag: "htag2",
-          backgroundColor: Colors.blueGrey[600],
-          label: Text("Уже прочитано"),
+          backgroundColor: mainColor,
+          label: Text("Уже прочитано", style: style),
           onPressed: () => bookbloc.add(AddToFavorite()),
         ),
       );
     }
 
     //Стиль для текста текстового поля
-    TextStyle style = new TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
 
     //Текстовое поле
     Widget field(String caption1, String caption2) {
@@ -82,7 +84,7 @@ class BookItemPage extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             border: Border(
-              bottom: BorderSide(width: 2.0, color: Colors.blueGrey[500]),
+              bottom: BorderSide(width: 2.0, color: Colors.black),
             ),
           ),
           child: Column(
@@ -105,7 +107,7 @@ class BookItemPage extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(width: 2.0, color: Colors.blueGrey[500]),
+                bottom: BorderSide(width: 2.0, color: Colors.black),
               ),
             ),
             child: Column(
@@ -146,8 +148,7 @@ class BookItemPage extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             state.caption,
-                            style: new TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                            style: style,
                           ),
                           CircularProgressIndicator(
                             strokeWidth: 5,

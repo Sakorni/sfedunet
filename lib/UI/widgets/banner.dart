@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:less_projects/UI/auth/login_form.dart';
+import 'package:less_projects/blocs/login/login_bloc.dart';
 
 class MyBanner extends StatelessWidget {
   final String caption;
@@ -10,13 +13,33 @@ class MyBanner extends StatelessWidget {
       painter: LinePainter(),
       child: Center(
         child: Container(
-            margin: EdgeInsets.only(top: 20.0),
-            height: MediaQuery.of(context).size.height * 0.05,
-            child: Text(
-              caption,
-              // style: Theme.of(context).textTheme.headline6,
-              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-            )),
+          margin: EdgeInsets.only(top: 20.0),
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          height: MediaQuery.of(context).size.height * 0.05,
+          child: Stack(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  caption,
+                  // style: Theme.of(context).textTheme.headline6,
+                  style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  icon: Icon(Icons.exit_to_app),
+                  onPressed: () {
+                    BlocProvider.of<LoginBloc>(context).add(Exit());
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

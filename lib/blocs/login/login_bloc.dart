@@ -53,5 +53,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } else
         yield LoginInitial(failed: true);
     }
+    if (event is Exit) {
+      final prefs = await SharedPreferences.getInstance();
+      prefs.remove('login');
+      prefs.remove('password');
+      yield LoginInitial();
+    }
   }
 }
