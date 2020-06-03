@@ -94,9 +94,9 @@ class RegistrationFormPage extends StatelessWidget {
                                         child: new TextFormField(
                                           controller: _loginController,
                                           decoration: new InputDecoration(
-                                            icon: new Icon(
+                                            suffixIcon: new Icon(
                                               FontAwesomeIcons.user,
-                                              color: Colors.blueGrey[900],
+                                              color: buttonColor,
                                             ),
                                             hintText: 'Введите ваш логин',
                                           ),
@@ -109,9 +109,9 @@ class RegistrationFormPage extends StatelessWidget {
                                         child: new TextFormField(
                                           controller: _emailController,
                                           decoration: new InputDecoration(
-                                            icon: new Icon(
+                                            suffixIcon: Icon(
                                               Icons.alternate_email,
-                                              color: Colors.blueGrey[900],
+                                              color: buttonColor,
                                             ),
                                             hintText:
                                                 'Введите электронную почту',
@@ -128,9 +128,9 @@ class RegistrationFormPage extends StatelessWidget {
                                           controller: _passController,
                                           obscureText: true,
                                           decoration: new InputDecoration(
-                                            icon: new Icon(
+                                            suffixIcon: new Icon(
                                               FontAwesomeIcons.key,
-                                              color: Colors.blueGrey[900],
+                                              color: buttonColor,
                                             ),
                                             hintText: 'Введите пароль',
                                             labelText: 'Ваш пароль',

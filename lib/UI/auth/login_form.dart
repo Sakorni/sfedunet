@@ -100,9 +100,9 @@ class LoginPage extends StatelessWidget {
                                       child: new TextFormField(
                                         controller: _loginController,
                                         decoration: new InputDecoration(
-                                          icon: new Icon(
+                                          suffixIcon: new Icon(
                                             FontAwesomeIcons.user,
-                                            color: Colors.blueGrey[900],
+                                            color: buttonColor,
                                           ),
                                           hintText: 'Введите ваш логин',
                                         ),
@@ -116,9 +116,9 @@ class LoginPage extends StatelessWidget {
                                         controller: _passwordController,
                                         obscureText: true,
                                         decoration: new InputDecoration(
-                                          icon: new Icon(
+                                          suffixIcon: new Icon(
                                             FontAwesomeIcons.key,
-                                            color: Colors.blueGrey[900],
+                                            color: buttonColor,
                                           ),
                                           hintText: 'Введите пароль',
                                         ),
