@@ -56,7 +56,10 @@ class Books extends StatelessWidget {
       double width = MediaQuery.of(context).size.width * 0.6;
       double height = MediaQuery.of(context).size.height * 0.4;
       List<Widget> result = new List<Widget>();
-      result.add(MyBanner(caption: "Книги", book: true));
+      result.add(Padding(
+        padding: const EdgeInsets.only(bottom: 15.0),
+        child: MyBanner(caption: "Книги", book: true),
+      ));
       books.forEach((book) => result.add(
             new BookItem(
               fav: fav,
@@ -102,20 +105,19 @@ class Books extends StatelessWidget {
                 if (state is EmptyFavBookList)
                   return Container(
                     height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "У вас пока что нет избранных книг.",
-                              style: style,
-                            ),
-                          ),
-                        ],
-                      ),
+                    child: Column(
+                      children: <Widget>[
+                        MyBanner(caption: "Книги", book: true),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.2),
+                        ),
+                        Text(
+                          "У вас пока что нет избранных книг.",
+                          style: style,
+                        ),
+                      ],
                     ),
                   );
                 if (state is BooksMain) {

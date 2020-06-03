@@ -5,11 +5,14 @@ abstract class FilmItemState extends Equatable {
 }
 
 class FilmItemInitial extends FilmItemState {
+  final bool faved;
+  final bool unfaved;
   final bool added;
 
-  FilmItemInitial({this.added = false});
+  FilmItemInitial(
+      {this.added = false, this.faved = false, this.unfaved = false});
   @override
-  List<Object> get props => [added];
+  List<Object> get props => [added, faved, unfaved];
 }
 
 class FilmItemLoading extends FilmItemState {

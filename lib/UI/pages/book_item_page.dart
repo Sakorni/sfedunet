@@ -15,6 +15,7 @@ class BookItemPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BookItemBloc bookbloc = BlocProvider.of<BookItemBloc>(context);
+    Book book = bookbloc.book;
 
     //Открытие ссылки в браузере
     Future<void> _launchURL(String url, BuildContext context) async {
@@ -57,7 +58,8 @@ class BookItemPage extends StatelessWidget {
           backgroundColor: buttonColor,
           label: Text(showfav ? "Убрать из избранного" : "В избранное",
               style: style),
-          onPressed: () => bookbloc.add(AddToFavorite()),
+          onPressed: () =>
+              bookbloc.add(!showfav ? AddToFavorite() : RemFromFavorite()),
         ),
       );
     }
@@ -116,7 +118,7 @@ class BookItemPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Открыть в браузере",
+                Text("Перейти к источнику",
                     style: style.copyWith(
                       fontSize: 20,
                       color: Colors.blue,
@@ -139,10 +141,31 @@ class BookItemPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: BlocConsumer<BookItemBloc, BookItemState>(
                 listener: (context, state) {
-                  if (state is BookItemInitial && state.added)
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                        duration: Duration(seconds: 2),
-                        content: Text("Книга успешно добавлена в список!")));
+                  if (state is BookItemInitial) {
+                    if (state.added)
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          duration: Duration(seconds: 2),
+                          content: Text(
+                              "Книга успешно добавлена в список прочитанных!"),
+                        ),
+                      );
+                    if (state.faved)
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          duration: Duration(seconds: 2),
+                          content: Text("Книга успешно добавлен в избранное!"),
+                        ),
+                      );
+                    if (state.unfaved) {
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          duration: Duration(seconds: 2),
+                          content: Text("Книга успешно удалена из избранного!"),
+                        ),
+                      );
+                    }
+                  }
                 },
                 builder: (context, state) {
                   if (state is BookItemLoading) {
@@ -165,7 +188,6 @@ class BookItemPage extends StatelessWidget {
                   }
 
                   if (state is BookItemInitial) {
-                    Book book = state.book;
                     return Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Column(

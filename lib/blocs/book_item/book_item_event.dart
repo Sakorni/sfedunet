@@ -13,3 +13,8 @@ class AddToRead extends BookItemEvent {
   @override
   List<Object> get props => [];
 }
+
+class RemFromFavorite extends BookItemEvent {
+  @override
+  List<Object> get props => [];
+}

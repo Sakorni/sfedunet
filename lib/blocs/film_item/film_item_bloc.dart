@@ -26,7 +26,12 @@ class FilmItemBloc extends Bloc<FilmItemEvent, FilmItemState> {
     if (event is AddToFavorite) {
       yield FilmItemLoading(caption: "Добавляем фильм в избранное...");
       await req.markFilm(token: user.token, id: film.id);
-      yield FilmItemInitial(added: true);
+      yield FilmItemInitial(faved: true);
+    }
+    if (event is RemFromFavorite) {
+      yield FilmItemLoading(caption: "Удаляем фильм из избранного...");
+      await req.markFilm(token: user.token, id: film.id);
+      yield FilmItemInitial(unfaved: true);
     }
     if (event is AddToRead) {
       yield FilmItemLoading(

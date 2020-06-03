@@ -59,7 +59,8 @@ class FilmItemPage extends StatelessWidget {
               showfav ? "Убрать из избранного" : "В избранное",
               style: style,
             ),
-            onPressed: () => filmbloc.add(AddToFavorite())),
+            onPressed: () =>
+                filmbloc.add(!showfav ? AddToFavorite() : RemFromFavorite())),
       );
     }
 
@@ -115,7 +116,7 @@ class FilmItemPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Пере",
+                Text("Перейти к источнику",
                     style: style.copyWith(
                       fontSize: 20,
                       color: Colors.blue,
@@ -138,10 +139,31 @@ class FilmItemPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: BlocConsumer<FilmItemBloc, FilmItemState>(
                 listener: (context, state) {
-                  if (state is FilmItemInitial && state.added)
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                        duration: Duration(seconds: 2),
-                        content: Text("Фильм успешно добавлен в список!")));
+                  if (state is FilmItemInitial) {
+                    if (state.added)
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          duration: Duration(seconds: 2),
+                          content: Text(
+                              "Фильм успешно добавлен в список просмотренных!"),
+                        ),
+                      );
+                    if (state.faved)
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          duration: Duration(seconds: 2),
+                          content: Text("Фильм успешно добавлен в избранное!"),
+                        ),
+                      );
+                    if (state.unfaved) {
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          duration: Duration(seconds: 2),
+                          content: Text("Фильм успешно удален из избранного!"),
+                        ),
+                      );
+                    }
+                  }
                 },
                 builder: (context, state) {
                   if (state is FilmItemLoading) {

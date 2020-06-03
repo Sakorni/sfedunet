@@ -5,12 +5,14 @@ abstract class BookItemState extends Equatable {
 }
 
 class BookItemInitial extends BookItemState {
+  final bool faved;
+  final bool unfaved;
   final bool added;
-  final Book book;
 
-  BookItemInitial({this.added = false, this.book});
+  BookItemInitial(
+      {this.added = false, this.faved = false, this.unfaved = false});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [added, faved, unfaved];
 }
 
 class BookItemLoading extends BookItemState {

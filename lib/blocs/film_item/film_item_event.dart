@@ -13,3 +13,8 @@ class AddToRead extends FilmItemEvent {
   @override
   List<Object> get props => [];
 }
+
+class RemFromFavorite extends FilmItemEvent {
+  @override
+  List<Object> get props => [];
+}

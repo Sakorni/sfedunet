@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:less_projects/UI/pages/book_item_page.dart';
+import 'package:less_projects/UI/style/decoration.dart';
 import 'package:less_projects/blocs/book_item/book_item_bloc.dart';
 import 'package:less_projects/classes/book_and_film.dart';
 import 'package:less_projects/classes/user.dart';
@@ -24,11 +25,7 @@ class BookItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text(
-          item.name,
-          style: TextStyle(
-              fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
-        ),
+        Text(item.name, style: style),
         Container(
           margin: EdgeInsets.only(bottom: 20.0, top: 5.0),
           width: this.width,

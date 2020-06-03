@@ -16,7 +16,7 @@ class BookItemBloc extends Bloc<BookItemEvent, BookItemState> {
   Requests req = new Requests();
   BookItemBloc({@required this.book, @required this.user});
   @override
-  BookItemState get initialState => BookItemInitial(book: book);
+  BookItemState get initialState => BookItemInitial();
 
   @override
   Stream<BookItemState> mapEventToState(
@@ -25,7 +25,14 @@ class BookItemBloc extends Bloc<BookItemEvent, BookItemState> {
     if (event is AddToFavorite) {
       yield BookItemLoading(caption: "Добавляем книгу в избранное...");
       await req.markBook(token: user.token, id: book.id);
-      yield BookItemInitial(added: true, book: book);
+      yield BookItemInitial(
+        added: true,
+      );
+    }
+    if (event is RemFromFavorite) {
+      yield BookItemLoading(caption: "Удаляем книгу из избранного...");
+      await req.markBook(token: user.token, id: book.id);
+      yield BookItemInitial(unfaved: true);
     }
     if (event is AddToRead) {
       yield BookItemLoading(caption: "Добавляем книгу в список прочитанных...");
