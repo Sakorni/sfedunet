@@ -35,11 +35,11 @@ class RegistryBloc extends Bloc<RegistryEvent, RegistryState> {
               await req.getToken(login: event.login, password: event.password);
           yield RegistrySuccess(user: user);
           yield RegistryInitial();
-        }
+        } else
+          yield RegistryInitial(failed: true);
       } catch (e) {
         yield RegistryInitial(failed: true);
       }
-    } else
-      yield RegistryInitial(failed: true);
+    }
   }
 }
