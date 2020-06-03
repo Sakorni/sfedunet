@@ -201,7 +201,7 @@ class FilmItemPage extends StatelessWidget {
                           field("Название: ", film.name),
                           field("Жанр: ", film.genre),
                           field("Режиссёр: ", film.director),
-                          field("Возрастной рейтинг: ", film.rating),
+                          field("Возрастной рейтинг: ", "PG${film.rating}+"),
                           field("Год выпуска: ", film.year),
                           field("Описание: ", film.caption),
                           field(
