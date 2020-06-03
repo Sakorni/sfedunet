@@ -10,9 +10,11 @@ class FilmItem extends StatelessWidget {
   final double width;
   final Film item;
   final User user;
+  final bool fav;
 
   const FilmItem(
       {Key key,
+      @required this.fav,
       @required this.width,
       @required this.height,
       @required this.item,
@@ -47,7 +49,9 @@ class FilmItem extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => BlocProvider<FilmItemBloc>(
                   create: (context) => FilmItemBloc(film: item, user: user),
-                  child: FilmItemPage(),
+                  child: FilmItemPage(
+                    showfav: fav,
+                  ),
                 ),
               ),
             ),

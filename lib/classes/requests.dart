@@ -94,7 +94,6 @@ class Requests {
 
   ///Получить список книг
   Future<List<Book>> getBooks({@required String token}) async {
-    await refreshBooks(token: token);
     List<Book> result = new List<Book>();
     http.Response response = await http
         .get('$URL/books/', headers: {HttpHeaders.authorizationHeader: token});

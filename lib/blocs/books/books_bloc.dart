@@ -35,7 +35,7 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
     BooksEvent event,
   ) async* {
     if (event is FirstLoadBook) {
-      await Future.delayed(Duration(seconds: 1, milliseconds: 50));
+      await Future.delayed(Duration(milliseconds: 50));
       this.user = event.user;
       await req.refreshBooks(token: user.token);
       try {
@@ -48,7 +48,7 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
     if (event is MoreBooks) {
       yield BooksLoading(
           caption: "Идёт обновление списка книг... \nПожалуйста, подождите");
-      await Future.delayed(Duration(seconds: 1));
+
       try {
         books = await req.getBooks(token: user.token);
         yield BooksMain(books: books);
@@ -89,7 +89,7 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
           caption: "Загрузка избранных книг... \nПожалуйста, подождите");
       try {
         books = await req.getFavBooks(token: user.token);
-        yield BooksMain(books: books);
+        yield BooksMain(books: books, showFav: true);
       } on EndOfItems {
         yield EmptyFavBookList();
       } on NotAuthorized {

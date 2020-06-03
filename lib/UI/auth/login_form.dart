@@ -39,10 +39,10 @@ class LoginPage extends StatelessWidget {
               child: Stack(
                 children: <Widget>[
                   Align(
-                    alignment: Alignment(0.0, -0.5),
+                    alignment: Alignment(0.0, -0.7),
                     child: new Container(
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: MediaQuery.of(context).size.width * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.27,
+                      width: MediaQuery.of(context).size.width * 0.47,
                       decoration: new BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage("images/whitelogo.png"),

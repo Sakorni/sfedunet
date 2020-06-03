@@ -6,7 +6,9 @@ import 'package:less_projects/classes/book_and_film.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FilmItemPage extends StatelessWidget {
+  final bool showfav;
   const FilmItemPage({
+    @required this.showfav,
     Key key,
   }) : super(key: key);
 
@@ -54,7 +56,7 @@ class FilmItemPage extends StatelessWidget {
             heroTag: "htag1",
             backgroundColor: buttonColor,
             label: Text(
-              "В избранное",
+              showfav ? "Убрать из избранного" : "В избранное",
               style: style,
             ),
             onPressed: () => filmbloc.add(AddToFavorite())),
@@ -71,7 +73,7 @@ class FilmItemPage extends StatelessWidget {
           heroTag: "htag2",
           backgroundColor: buttonColor,
           label: Text("Уже просмотрено", style: style),
-          onPressed: () => filmbloc.add(AddToFavorite()),
+          onPressed: () => filmbloc.add(AddToRead()),
         ),
       );
     }
@@ -100,21 +102,25 @@ class FilmItemPage extends StatelessWidget {
 
     Widget buttonField(String caption1, String caption2, BuildContext context) {
       return Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 5.0),
         child: FlatButton(
           onPressed: () async => await _launchURL(caption2, context),
           child: Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(width: 2.0, color: Colors.blueGrey[500]),
+                bottom: BorderSide(width: 2.0, color: textColor),
               ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(caption1, style: style),
-                Text(caption2, style: style),
+                Text("Пере",
+                    style: style.copyWith(
+                      fontSize: 20,
+                      color: Colors.blue,
+                      fontStyle: FontStyle.italic,
+                    )),
               ],
             ),
           ),

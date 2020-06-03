@@ -24,7 +24,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is FirstLoadingLogin) {
       yield LoginLoading(
           caption: "Идёт проверка данных\nПожалуйста, подождите");
-      await Future.delayed(Duration(seconds: 1, milliseconds: 50));
+      await Future.delayed(Duration(milliseconds: 50));
       final prefs = await SharedPreferences.getInstance();
       final password = prefs.getString('password') ?? 0;
       final login = prefs.getString('login') ?? 0;

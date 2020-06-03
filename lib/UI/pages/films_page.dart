@@ -44,7 +44,8 @@ class Films extends StatelessWidget {
     }
 
     ///Выдает наполнение основного экрана
-    List<Widget> getListOfItems({List<Film> films, BuildContext context}) {
+    List<Widget> getListOfItems(
+        {List<Film> films, BuildContext context, bool fav}) {
       User user = BlocProvider.of<FilmsBloc>(context).user;
       double width = MediaQuery.of(context).size.width * 0.6;
       double height = MediaQuery.of(context).size.height * 0.4;
@@ -52,13 +53,14 @@ class Films extends StatelessWidget {
       result.add(MyBanner(caption: "Фильмы", book: false));
       films.forEach((film) => result.add(
             new FilmItem(
+              fav: fav,
               user: user,
               height: height,
               width: width,
               item: film,
             ),
           ));
-      result.add(getMore());
+      if (!fav) result.add(getMore());
       return result;
     }
 
@@ -116,7 +118,9 @@ class Films extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Column(
                         children: getListOfItems(
-                            films: state.films, context: context),
+                            fav: state.showFav,
+                            films: state.films,
+                            context: context),
                       ),
                     ),
                   );

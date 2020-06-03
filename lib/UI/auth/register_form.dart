@@ -16,6 +16,7 @@ class RegistrationFormPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      resizeToAvoidBottomInset: false,
       body: new GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(new FocusNode());
@@ -31,10 +32,10 @@ class RegistrationFormPage extends StatelessWidget {
               child: Stack(
                 children: <Widget>[
                   Align(
-                    alignment: AlignmentDirectional.topCenter,
+                    alignment: Alignment(0.0, -0.7),
                     child: new Container(
-                      height: MediaQuery.of(context).size.height * 0.34,
-                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: MediaQuery.of(context).size.height * 0.27,
+                      width: MediaQuery.of(context).size.width * 0.47,
                       decoration: new BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage("images/whitelogo.png"),
@@ -42,7 +43,7 @@ class RegistrationFormPage extends StatelessWidget {
                     ),
                   ),
                   Align(
-                      alignment: const Alignment(0, 0.5),
+                      alignment: const Alignment(0, 0.3),
                       child: BlocConsumer<RegistryBloc, RegistryState>(
                         listener: (context, state) {
                           if (state is RegistryInitial && state.failed)
@@ -83,93 +84,64 @@ class RegistrationFormPage extends StatelessWidget {
                               child: new Theme(
                                 data: new ThemeData(
                                   brightness: Brightness.dark,
-                                  accentColor: mainColor,
                                 ),
                                 //Loginfield
-                                child: SingleChildScrollView(
-                                  child: new Column(
-                                    children: <Widget>[
-                                      new Container(
-                                          margin: new EdgeInsets.fromLTRB(
-                                              20.0, 0.0, 20.0, 10.0),
-                                          child: new TextFormField(
-                                            controller: _loginController,
-                                            decoration: new InputDecoration(
-                                              icon: new Icon(
-                                                FontAwesomeIcons.user,
-                                                color: Colors.blueGrey[900],
-                                              ),
-                                              hintText: 'Введите ваш логин',
+                                child: new Column(
+                                  children: <Widget>[
+                                    new Container(
+                                        margin: new EdgeInsets.fromLTRB(
+                                            20.0, 0.0, 20.0, 10.0),
+                                        child: new TextFormField(
+                                          controller: _loginController,
+                                          decoration: new InputDecoration(
+                                            icon: new Icon(
+                                              FontAwesomeIcons.user,
+                                              color: Colors.blueGrey[900],
                                             ),
-                                            keyboardType: TextInputType.text,
-                                          )),
-                                      //Email adress
-                                      new Container(
-                                          margin: new EdgeInsets.fromLTRB(
-                                              20.0, 0.0, 20.0, 10.0),
-                                          child: new TextFormField(
-                                            controller: _emailController,
-                                            decoration: new InputDecoration(
-                                              icon: new Icon(
-                                                Icons.alternate_email,
-                                                color: Colors.blueGrey[900],
-                                              ),
-                                              hintText:
-                                                  'Введите электронную почту',
-                                              labelText:
-                                                  'Ваша электронная почта',
-                                            ),
-                                            keyboardType:
-                                                TextInputType.emailAddress,
-                                          )),
-                                      //Passsword
-                                      new Container(
-                                          margin: new EdgeInsets.fromLTRB(
-                                              20.0, 0.0, 20.0, 10.0),
-                                          child: new TextFormField(
-                                            controller: _passController,
-                                            obscureText: true,
-                                            decoration: new InputDecoration(
-                                              icon: new Icon(
-                                                FontAwesomeIcons.key,
-                                                color: Colors.blueGrey[900],
-                                              ),
-                                              hintText: 'Введите пароль',
-                                              labelText: 'Ваш пароль',
-                                            ),
-                                            keyboardType:
-                                                TextInputType.visiblePassword,
-                                          )),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 15.0),
-                                        child: new Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.8,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.14,
-                                          child: FloatingActionButton.extended(
-                                            heroTag: "htag1",
-                                            backgroundColor: buttonColor,
-                                            label: Text("Зарегестрироваться",
-                                                style: style),
-                                            onPressed: () => BlocProvider.of<
-                                                    RegistryBloc>(context)
-                                                .add(CheckRegistry(
-                                                    email:
-                                                        _emailController.text,
-                                                    login:
-                                                        _loginController.text,
-                                                    password:
-                                                        _passController.text)),
+                                            hintText: 'Введите ваш логин',
                                           ),
-                                        ),
-                                      ),
-                                      new Container(
+                                          keyboardType: TextInputType.text,
+                                        )),
+                                    //Email adress
+                                    new Container(
+                                        margin: new EdgeInsets.fromLTRB(
+                                            20.0, 0.0, 20.0, 10.0),
+                                        child: new TextFormField(
+                                          controller: _emailController,
+                                          decoration: new InputDecoration(
+                                            icon: new Icon(
+                                              Icons.alternate_email,
+                                              color: Colors.blueGrey[900],
+                                            ),
+                                            hintText:
+                                                'Введите электронную почту',
+                                            labelText: 'Ваша электронная почта',
+                                          ),
+                                          keyboardType:
+                                              TextInputType.emailAddress,
+                                        )),
+                                    //Passsword
+                                    new Container(
+                                        margin: new EdgeInsets.fromLTRB(
+                                            20.0, 0.0, 20.0, 10.0),
+                                        child: new TextFormField(
+                                          controller: _passController,
+                                          obscureText: true,
+                                          decoration: new InputDecoration(
+                                            icon: new Icon(
+                                              FontAwesomeIcons.key,
+                                              color: Colors.blueGrey[900],
+                                            ),
+                                            hintText: 'Введите пароль',
+                                            labelText: 'Ваш пароль',
+                                          ),
+                                          keyboardType:
+                                              TextInputType.visiblePassword,
+                                        )),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 15.0),
+                                      child: new Container(
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.8,
@@ -177,15 +149,34 @@ class RegistrationFormPage extends StatelessWidget {
                                             MediaQuery.of(context).size.width *
                                                 0.14,
                                         child: FloatingActionButton.extended(
-                                          heroTag: "htag2",
+                                          heroTag: "htag1",
                                           backgroundColor: buttonColor,
-                                          label: Text("Назад", style: style),
-                                          onPressed: () =>
-                                              Navigator.pop(context),
+                                          label: Text("Зарегестрироваться",
+                                              style: style),
+                                          onPressed: () => BlocProvider.of<
+                                                  RegistryBloc>(context)
+                                              .add(CheckRegistry(
+                                                  email: _emailController.text,
+                                                  login: _loginController.text,
+                                                  password:
+                                                      _passController.text)),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    new Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
+                                      height:
+                                          MediaQuery.of(context).size.width *
+                                              0.14,
+                                      child: FloatingActionButton.extended(
+                                        heroTag: "htag2",
+                                        backgroundColor: buttonColor,
+                                        label: Text("Назад", style: style),
+                                        onPressed: () => Navigator.pop(context),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ));

@@ -5,9 +5,10 @@ abstract class BooksState extends Equatable {
 }
 
 class BooksMain extends BooksState {
+  final bool showFav;
   final List<Book> books;
 
-  BooksMain({@required this.books});
+  BooksMain({@required this.books, this.showFav = false});
   @override
   List<Object> get props => [books];
 }

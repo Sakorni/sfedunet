@@ -48,6 +48,7 @@ class Books extends StatelessWidget {
 
     ///Выдает наполнение основного экрана
     List<Widget> getListOfItems({
+      bool fav,
       List<Book> books,
       BuildContext context,
     }) {
@@ -58,13 +59,14 @@ class Books extends StatelessWidget {
       result.add(MyBanner(caption: "Книги", book: true));
       books.forEach((book) => result.add(
             new BookItem(
+              fav: fav,
               user: user,
               height: height,
               width: width,
               item: book,
             ),
           ));
-      result.add(getMore());
+      if (!fav) result.add(getMore());
       return result;
     }
 
@@ -122,6 +124,7 @@ class Books extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Column(
                         children: getListOfItems(
+                          fav: state.showFav,
                           books: state.books,
                           context: context,
                         ),

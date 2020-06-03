@@ -10,9 +10,10 @@ class BookItem extends StatelessWidget {
   final double width;
   final Book item;
   final User user;
-
+  final bool fav;
   const BookItem(
       {Key key,
+      @required this.fav,
       @required this.width,
       @required this.height,
       @required this.item,
@@ -47,7 +48,9 @@ class BookItem extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => BlocProvider<BookItemBloc>(
                   create: (context) => BookItemBloc(book: item, user: user),
-                  child: BookItemPage(),
+                  child: BookItemPage(
+                    showfav: fav,
+                  ),
                 ),
               ),
             ),

@@ -29,7 +29,7 @@ class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
   ) async* {
     {
       if (event is FirstLoadFilm) {
-        await Future.delayed(Duration(seconds: 1, milliseconds: 50));
+        await Future.delayed(Duration(milliseconds: 50));
         this.user = event.user;
         await req.refreshFilms(token: user.token);
         try {
@@ -43,7 +43,6 @@ class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
         yield FilmLoading(
             caption:
                 "Идёт обновление списка фильмов... \nПожалуйста, подождите");
-        await Future.delayed(Duration(seconds: 1));
         try {
           films = await req.getFilms(token: user.token);
           yield FilmsMain(films: films);
@@ -88,7 +87,7 @@ class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
         try {
           await req.refreshFilms(token: user.token);
           films = await req.getFavFilms(token: user.token);
-          yield FilmsMain(films: films);
+          yield FilmsMain(films: films, showFav: true);
         } on EndOfItems {
           yield EmptyFavFilmList();
         } on NotAuthorized {

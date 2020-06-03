@@ -6,7 +6,9 @@ import 'package:less_projects/classes/book_and_film.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BookItemPage extends StatelessWidget {
+  final bool showfav;
   const BookItemPage({
+    @required this.showfav,
     Key key,
   }) : super(key: key);
 
@@ -53,7 +55,8 @@ class BookItemPage extends StatelessWidget {
         child: FloatingActionButton.extended(
           heroTag: "htag1",
           backgroundColor: buttonColor,
-          label: Text("В избранное", style: style),
+          label: Text(showfav ? "Убрать из избранного" : "В избранное",
+              style: style),
           onPressed: () => bookbloc.add(AddToFavorite()),
         ),
       );
@@ -68,8 +71,8 @@ class BookItemPage extends StatelessWidget {
         child: FloatingActionButton.extended(
           heroTag: "htag2",
           backgroundColor: buttonColor,
-          label: Text("Уже прочитано", style: style),
-          onPressed: () => bookbloc.add(AddToFavorite()),
+          label: Text("Уже прочитанно", style: style),
+          onPressed: () => bookbloc.add(AddToRead()),
         ),
       );
     }
@@ -100,7 +103,7 @@ class BookItemPage extends StatelessWidget {
 
     Widget buttonField(String caption1, String caption2, BuildContext context) {
       return Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 5.0),
         child: FlatButton(
           onPressed: () async => await _launchURL(caption2, context),
           child: Container(
@@ -113,8 +116,12 @@ class BookItemPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(caption1, style: style),
-                Text(caption2, style: style),
+                Text("Открыть в браузере",
+                    style: style.copyWith(
+                      fontSize: 20,
+                      color: Colors.blue,
+                      fontStyle: FontStyle.italic,
+                    )),
               ],
             ),
           ),

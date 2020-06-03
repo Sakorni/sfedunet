@@ -6,8 +6,9 @@ abstract class FilmsState extends Equatable {
 
 class FilmsMain extends FilmsState {
   final List<Film> films;
+  final bool showFav;
 
-  FilmsMain({@required this.films});
+  FilmsMain({@required this.films, this.showFav = false});
   @override
   List<Object> get props => [films];
 }
