@@ -34,7 +34,6 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
   Stream<BooksState> mapEventToState(
     BooksEvent event,
   ) async* {
-    print(event);
     if (event is FirstLoadBook) {
       await Future.delayed(Duration(seconds: 1, milliseconds: 50));
       this.user = event.user;

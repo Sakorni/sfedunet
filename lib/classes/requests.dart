@@ -22,7 +22,6 @@ class Requests {
     String body = jsonEncode(<String, dynamic>{
       "user": {"email": email, "username": login, "password": password}
     });
-    print(body);
     http.Response response = await http.post(URL + '/user',
         body: body,
         headers: <String, String>{'Content-Type': 'application/json'});
@@ -55,12 +54,9 @@ class Requests {
 
   ///Получает пользователя по токену
   Future<void> getProfile({@required String token}) async {
-    print("getting");
     http.Response response = await http
         .get(URL + "/user", headers: {HttpHeaders.authorizationHeader: token});
     if (response.statusCode == 401) throw new NotAuthorized();
-    print(response.statusCode);
-    print(jsonDecode(response.body));
     //TODO: Доделать
   }
 
@@ -102,7 +98,6 @@ class Requests {
     List<Book> result = new List<Book>();
     http.Response response = await http
         .get('$URL/books/', headers: {HttpHeaders.authorizationHeader: token});
-    print(response.statusCode);
     if (response.statusCode == 401) throw new NotAuthorized();
     if (response.statusCode == 200) {
       List<dynamic> list = jsonDecode(response.body);

@@ -20,8 +20,6 @@ class MyBanner extends StatelessWidget {
     bool favoriteBook = bookBloc.favorite;
     bool favoriteFilm = filmBloc.favorite;
     bool favorite = (book && favoriteBook) || (!book && favoriteFilm);
-    print("fav is $favorite");
-    print("favbook is $favoriteBook");
     return CustomPaint(
       painter: LinePainter(),
       child: Center(
@@ -49,7 +47,6 @@ class MyBanner extends StatelessWidget {
                       if (book) {
                         bookBloc.changeFavorite();
                         if (favorite) {
-                          print("there");
                           bookBloc.add(MoreBooks());
                         } else {
                           bookBloc.add(ShowFavoritesBooks());

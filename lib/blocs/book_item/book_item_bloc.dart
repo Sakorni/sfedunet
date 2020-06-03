@@ -14,7 +14,7 @@ class BookItemBloc extends Bloc<BookItemEvent, BookItemState> {
   final Book book;
   User user;
   Requests req = new Requests();
-  BookItemBloc({@required this.book, @required this.user}) {}
+  BookItemBloc({@required this.book, @required this.user});
   @override
   BookItemState get initialState => BookItemInitial(book: book);
 
@@ -24,9 +24,7 @@ class BookItemBloc extends Bloc<BookItemEvent, BookItemState> {
   ) async* {
     if (event is AddToFavorite) {
       yield BookItemLoading(caption: "Добавляем книгу в избранное...");
-      print(1);
       await req.markBook(token: user.token, id: book.id);
-      print(2);
       yield BookItemInitial(added: true, book: book);
     }
     if (event is AddToRead) {

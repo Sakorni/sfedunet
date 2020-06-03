@@ -10,7 +10,6 @@ import 'package:less_projects/classes/user.dart';
 class Books extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    User user = BlocProvider.of<BooksBloc>(context).user;
     //Кнопошка получения большего списка
     Widget getMore() {
       return Container(
@@ -52,6 +51,7 @@ class Books extends StatelessWidget {
       List<Book> books,
       BuildContext context,
     }) {
+      User user = BlocProvider.of<BooksBloc>(context).user;
       double width = MediaQuery.of(context).size.width * 0.6;
       double height = MediaQuery.of(context).size.height * 0.4;
       List<Widget> result = new List<Widget>();

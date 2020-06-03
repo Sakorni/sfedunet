@@ -28,8 +28,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       final prefs = await SharedPreferences.getInstance();
       final password = prefs.getString('password') ?? 0;
       final login = prefs.getString('login') ?? 0;
-      print(login);
-      print(password);
       if (password == 0) {
         yield LoginInitial();
       } else {

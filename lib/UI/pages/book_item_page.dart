@@ -138,7 +138,6 @@ class BookItemPage extends StatelessWidget {
                         content: Text("Книга успешно добавлена в список!")));
                 },
                 builder: (context, state) {
-                  print(state.toString());
                   if (state is BookItemLoading) {
                     return Center(
                       heightFactor: 13,

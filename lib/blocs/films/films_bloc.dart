@@ -45,7 +45,6 @@ class FilmsBloc extends Bloc<FilmsEvent, FilmsState> {
                 "Идёт обновление списка фильмов... \nПожалуйста, подождите");
         await Future.delayed(Duration(seconds: 1));
         try {
-          print('trying');
           films = await req.getFilms(token: user.token);
           yield FilmsMain(films: films);
         } on EndOfItems {

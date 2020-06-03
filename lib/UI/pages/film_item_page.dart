@@ -78,7 +78,6 @@ class FilmItemPage extends StatelessWidget {
 
     //Текстовое поле
     Widget field(String caption1, String caption2) {
-      print(caption1);
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
         child: Container(

@@ -11,8 +11,6 @@ class Films extends StatelessWidget {
   @override
   //TODO: Добавить блокКонсумер
   Widget build(BuildContext context) {
-    User user = BlocProvider.of<FilmsBloc>(context).user;
-
     //Кнопошка получения большего списка
     Widget getMore() {
       return Container(
@@ -47,6 +45,7 @@ class Films extends StatelessWidget {
 
     ///Выдает наполнение основного экрана
     List<Widget> getListOfItems({List<Film> films, BuildContext context}) {
+      User user = BlocProvider.of<FilmsBloc>(context).user;
       double width = MediaQuery.of(context).size.width * 0.6;
       double height = MediaQuery.of(context).size.height * 0.4;
       List<Widget> result = new List<Widget>();
