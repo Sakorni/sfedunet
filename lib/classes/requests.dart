@@ -2,12 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:less_projects/UI/pages/books_page.dart';
 import 'package:less_projects/classes/book_and_film.dart';
 import 'package:less_projects/classes/user.dart';
 
 class Requests {
-  static const URL = 'http://35.228.194.199:3000/';
+  static const URL = 'http://35.228.21.13:3000/';
 
   ///Регистрирует пользователя.
   Future<bool> reg(

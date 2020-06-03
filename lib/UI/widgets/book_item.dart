@@ -25,7 +25,11 @@ class BookItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text(item.name, style: style),
+        Text(
+          item.name,
+          style: TextStyle(
+              fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
+        ),
         Container(
           margin: EdgeInsets.only(bottom: 20.0, top: 5.0),
           width: this.width,

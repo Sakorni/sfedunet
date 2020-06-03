@@ -26,7 +26,7 @@ class BookItemBloc extends Bloc<BookItemEvent, BookItemState> {
       yield BookItemLoading(caption: "Добавляем книгу в избранное...");
       await req.markBook(token: user.token, id: book.id);
       yield BookItemInitial(
-        added: true,
+        faved: true,
       );
     }
     if (event is RemFromFavorite) {
